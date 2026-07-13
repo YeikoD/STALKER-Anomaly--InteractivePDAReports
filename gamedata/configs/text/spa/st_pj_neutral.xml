@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="st_pjnews_neutral_1">
+        <text>Reportando un fiambre... Es %s aca en %s, de la faccion %s. El tipo ya paso a mejor vida.</text>
+    </string>
+    <string id="st_pjnews_neutral_2">
+        <text>Encontre el cuerpo de %s aca en %s. Era de los %s. Parece que paso hace rato y los mutantes ya andan cerca.</text>
+    </string>
+    <string id="st_pjnews_neutral_3">
+        <text>Pobre tipo... quedo tirado %s aca en %s, de los %s. La Zona no perdona a nadie, anden con cuidado.</text>
+    </string>
+</string_table>

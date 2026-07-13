@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="st_pjnews_victima_1">
+        <text>Recien limpie a este infeliz. %s paso a mejor vida en %s, de los %s, no tuvo oportunidad contra mi. Una rata menos.</text>
+    </string>
+    <string id="st_pjnews_victima_2">
+        <text>¿Te pensabas que me ibas a ganar, %s? Mandaste fruta aca en %s. Otro %s que dobla el lomo gracias a mi fierro.</text>
+    </string>
+    <string id="st_pjnews_victima_3">
+        <text>Aca en %2$s quedo la marquita de mi bala... no, para: </text>
+        <text>Le clave una bala en la frente a %s aca en %s. Sos historia, %s. La proxima piensen dos veces antes de apuntarme.</text>
+    </string>
+</string_table>

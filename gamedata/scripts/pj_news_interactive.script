@@ -1,0 +1,207 @@
+-- ============================================================================
+-- CONFIGURACIÓN DEL MOD
+-- ============================================================================
+local segundos_de_espera = 3.0 
+local modName = "PJNews"
+
+-- ============================================================================
+-- MEMORIA DEL MOD
+-- ============================================================================
+local cadaveres_reportados = {}
+local muertos_por_el_actor = {} 
+local cadaver_pendiente = nil 
+
+-- Guardamos el total de frases aquí al iniciar el juego
+local total_frases = {
+    amistoso = 0,
+    neutral = 0,
+    enemigo = 0,
+    victima = 0
+}
+
+-- ============================================================================
+-- 1. REGISTRO DE EVENTOS
+-- ============================================================================
+function on_game_start()
+    RegisterScriptCallback("actor_on_first_update", al_entrar_al_mundo)
+    RegisterScriptCallback("npc_on_death_callback", al_morir_npc)
+    RegisterScriptCallback("npc_on_use", al_usar_npc)
+    RegisterScriptCallback("GUI_on_hide", al_cerrar_inventario)
+end
+
+-- ============================================================================
+-- 2. MENSAJE DE INICIO Y ESCANEO ÚNICO
+-- ============================================================================
+function al_entrar_al_mundo()
+    printf("--- YeikoD - ".. modName ..": Mod iniciado correctamente.")
+    cadaveres_reportados = {}
+    muertos_por_el_actor = {} 
+    cadaver_pendiente = nil
+    
+    -- ESCANEO ÚNICO: Averiguamos los máximos una sola vez al cargar la partida
+    total_frases.amistoso = contar_frases_en_xml("st_pjnews_amistoso")
+    total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
+    total_frases.enemigo = contar_frases_en_xml("st_pjnews_enemigo")
+    total_frases.victima = contar_frases_en_xml("st_pjnews_victima")
+    
+    printf("--- YeikoD - ".. modName ..": Escaneo de XMLs completo. Amistosos: %d | Neutrales: %d | Enemigos: %d | Victimas: %d", 
+        total_frases.amistoso, total_frases.neutral, total_frases.enemigo, total_frases.victima)
+    
+    -- Mensaje clásico de conexión
+    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+    local texto_conexion = game.translate_string("st_pjnews_pda_con")
+    
+    if texto_conexion == "st_pjnews_pda_con" then
+        texto_conexion = "PDA: Conexion establecida."
+    end
+    
+    local msg = inc_clr .. texto_conexion
+    dynamic_news_helper.send_tip(msg, "Orbitario", nil, 10, "stalker", "news", "npc")
+end
+
+-- Auxiliar que solo se ejecuta al iniciar la partida
+function contar_frases_en_xml(prefijo_id)
+    local contador = 1
+    while true do
+        local test_id = prefijo_id .. "_" .. tostring(contador)
+        local trad = game.translate_string(test_id)
+        if trad == test_id then
+            break
+        end
+        contador = contador + 1
+    end
+    return contador - 1
+end
+
+-- ============================================================================
+-- 3. DETECTAR QUIÉN CAUSÓ LA MUERTE
+-- ============================================================================
+function al_morir_npc(victim, killer)
+    if not (victim and killer) then return end
+
+    if killer:id() == db.actor:id() then
+        local id_victima = victim:id()
+        muertos_por_el_actor[id_victima] = true
+        printf("--- YeikoD - ".. modName ..": El jugador asesino al NPC con ID: %s", tostring(id_victima))
+    end
+end
+
+-- ============================================================================
+-- 4. DETECTAR EL USO DEL NPC (Paso 1: Guardar datos en espera)
+-- ============================================================================
+function al_usar_npc(npc, actor)
+    if not (npc) then return end
+
+    if not (npc:alive()) then
+        local id_muerto = npc:id()
+
+        if cadaveres_reportados[id_muerto] then
+            return
+        end
+
+        cadaveres_reportados[id_muerto] = true
+        local lo_mate_yo = muertos_por_el_actor[id_muerto] or false
+
+        cadaver_pendiente = {
+            id = id_muerto,
+            nombre = npc:character_name(),
+            faccion = npc:character_community(),
+            icono = npc:character_icon(),
+            asesinado_por_actor = lo_mate_yo
+        }
+        
+        printf("--- YeikoD - ".. modName ..": Cadaver en espera. ID: %s | ¿Lo mate yo?: %s", tostring(id_muerto), tostring(lo_mate_yo))
+    end
+end
+
+-- ============================================================================
+-- 5. DETECTAR CIERRE DE INVENTARIO
+-- ============================================================================
+function al_cerrar_inventario(gui)
+    if cadaver_pendiente then
+        local datos_envio = {
+            id = cadaver_pendiente.id,
+            nombre = cadaver_pendiente.nombre,
+            faccion = cadaver_pendiente.faccion,
+            icono = cadaver_pendiente.icono,
+            asesinado_por_actor = cadaver_pendiente.asesinado_por_actor
+        }
+
+        cadaver_pendiente = nil
+
+        printf("--- YeikoD - ".. modName ..": Creando evento de tiempo para enviar en %s segundos...", tostring(segundos_de_espera))
+
+        CreateTimeEvent("PJNews_Delay_Event", "enviar_mensaje_pda", segundos_de_espera, function()
+            enviar_notificacion_pda(datos_envio)
+            return true
+        end)
+    end
+end
+
+-- ============================================================================
+-- 6. OBTENER FRAsE AL AZAR (Súper optimizado sin bucles en gameplay)
+-- ============================================================================
+function obtener_frase_optima(tipo_relacion)
+    local max_disponibles = total_frases[tipo_relacion] or 0
+    if max_disponibles == 0 then
+        return nil
+    end
+    
+    local indice_elegido = math.random(1, max_disponibles)
+    local id_final = "st_pjnews_" .. tipo_relacion .. "_" .. tostring(indice_elegido)
+    
+    return game.translate_string(id_final)
+end
+
+-- ============================================================================
+-- 7. ENVIAR MENSAJE
+-- ============================================================================
+function enviar_notificacion_pda(datos)
+    if not datos then return end
+
+    local nombre_muerto = datos.nombre
+    local faccion_muerto = datos.faccion
+    local icono_muerto = datos.icono
+    local lo_mate_yo = datos.asesinado_por_actor
+    
+    local nombre_player = db.actor:character_name()
+    local faccion_player = db.actor:character_community()
+    local zona_actual = game.translate_string(level.name())
+
+    local relacion_puntos = relation_registry.community_relation(faccion_player, faccion_muerto)
+    
+    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+
+    local texto_formateado = ""
+    local plantilla = nil
+
+    if relacion_puntos >= 400 then
+        plantilla = obtener_frase_optima("amistoso")
+    elseif relacion_puntos <= -400 then
+        if lo_mate_yo then
+            plantilla = obtener_frase_optima("victima")
+        else
+            plantilla = obtener_frase_optima("enemigo")
+        end
+    else
+        plantilla = obtener_frase_optima("neutral")
+    end
+
+    -- Usamos el formateador nativo pasándole el orden: Nombre, Zona, Facción
+    if plantilla then
+        texto_formateado = string.format(plantilla, nombre_muerto, zona_actual, faccion_muerto)
+    end
+
+    if texto_formateado == "" then
+        texto_formateado = "Reportando un cuerpo en " .. zona_actual .. ". Se trata de " .. nombre_muerto .. "."
+    end
+
+    local msg = strformat("%s%s: %s%s", inc_clr, nombre_player, def_clr, texto_formateado)
+    
+    dynamic_news_helper.send_tip(msg, "Orbitario", nil, 10, icono_muerto, "danger", "npc")
+    printf("--- YeikoD - ".. modName ..": Mensaje aleatorio enviado con exito.")
+    
+    muertos_por_el_actor[datos.id] = nil
+end

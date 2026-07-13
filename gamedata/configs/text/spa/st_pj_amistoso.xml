@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="st_pjnews_amistoso_1">
+        <text>Puta madre... Encontre el cuerpo de mi compañero %s aca en %s. Era un buen %s, que la Zona lo tenga en su gloria.</text>
+    </string>
+    <string id="st_pjnews_amistoso_2">
+        <text>No me la contes... %s cayo aca en %s. Los %s perdimos a uno de los buenos hoy. Que descanses en paz, hermano.</text>
+    </string>
+    <string id="st_pjnews_amistoso_3">
+        <text>Mala noticia para nosotros... Encontre tirado a %s aca en %s. Era un %s de fierro, se va a extrañar en el campamento.</text>
+    </string>
+</string_table>
