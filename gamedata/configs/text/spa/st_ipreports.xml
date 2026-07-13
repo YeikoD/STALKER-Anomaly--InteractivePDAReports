@@ -6,4 +6,30 @@
     <string id="st_pjnews_todos">
         <text>Todos</text>
     </string>
+
+    <string id="st_pjnews_privado">
+        <text>Privado</text>
+    </string>
+    <string id="st_pjnews_reward_sender">
+        <text>Sidorovich</text>
+    </string>
+    <string id="st_pjnews_reward_sender_faction">
+        <text>Comerciante</text>
+    </string>
+
+    <string id="st_pjnews_reward_1">
+        <text>Hola {player}, aqui tienes {money} rublos por reportar {count} cuerpos. Sigue asi, la Zona necesita gente como vos.</text>
+    </string>
+    <string id="st_pjnews_reward_2">
+        <text>{player}, {money} rublos por tu colaboracion. Los {count} reportes ayudan a mantener el orden... o lo que sea que quede de el.</text>
+    </string>
+    <string id="st_pjnews_reward_3">
+        <text>Buen trabajo, {player}. Te deposite {money} por los ultimos {count} fiambres. Segui reportando.</text>
+    </string>
+    <string id="st_pjnews_reward_4">
+        <text>{count} cuerpos reportados, {money} rublos depositados. Segui asi, {player}, que siempre hay trabajo para un stalker con olfato.</text>
+    </string>
+    <string id="st_pjnews_reward_5">
+        <text>Recibi tus {count} reportes, {player}. Te transferi {money} rublos. No te confies, la Zona siempre cobra su parte.</text>
+    </string>
 </string_table>

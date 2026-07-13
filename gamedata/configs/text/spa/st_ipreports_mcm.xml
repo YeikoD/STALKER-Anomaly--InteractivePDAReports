@@ -25,6 +25,30 @@
         <text>Tiempo en segundos que debe esperar entre reportes.\n60 = 1 minuto, 300 = 5 minutos.</text>
     </string>
 
+    <string id="ui_mcm_ipreports_reward_title">
+        <text>Recompensa</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_toggle">
+        <text>Dar Dinero por Reporte</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_toggle_desc">
+        <text>Otorga dinero al jugador cada vez que realiza un reporte exitoso.</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_amount">
+        <text>Monto de Recompensa</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_amount_desc">
+        <text>Cantidad de dinero en rublos que recibe por cada reporte.\n10 = Minimo, 50 = Maximo.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_interval">
+        <text>Cadavers por Pago</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_interval_desc">
+        <text>Cantidad de cuerpos reportados necesarios para recibir el pago.\n1 = cada reporte, 5 = cada 5 reportes.</text>
+    </string>
+
     <string id="ui_mcm_ipreports_prob_title">
         <text>Probabilidades de Respuesta</text>
     </string>

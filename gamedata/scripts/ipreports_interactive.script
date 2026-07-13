@@ -18,6 +18,7 @@ local cadaveres_reportados = {}
 local muertos_por_el_actor = {}
 local cadaver_pendiente = nil
 local cooldown_proximo_reporte = 0
+local reward_corpse_counter = 0
 
 -- ============================================================================
 -- 1. REGISTRO DE EVENTOS (CALLBACKS OFICIALES)
@@ -55,14 +56,27 @@ function contar_frases_en_xml(prefijo_id)
     return contador - 1
 end
 
-rotacion_player = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
+local ultimo_idx = {
+    player_amistoso = 0, player_neutral = 0, player_enemigo = 0, player_victima = 0,
+    npc_amistoso = 0, npc_neutral = 0, npc_enemigo = 0, npc_victima = 0,
+    seg_amistoso = 0, seg_neutral = 0, seg_enemigo = 0
+}
+
+function idx_random_no_repeat(clave, maximo)
+    if maximo <= 0 then return 0 end
+    if maximo == 1 then return 1 end
+    local ultimo = ultimo_idx[clave] or 0
+    local elegido = math.random(1, maximo - 1)
+    if elegido >= ultimo then elegido = elegido + 1 end
+    ultimo_idx[clave] = elegido
+    return elegido
+end
 
 function obtener_frase_optima(tipo_relacion)
     local max_disponibles = total_frases[tipo_relacion] or 0
     if max_disponibles == 0 then return nil, 0 end
 
-    rotacion_player[tipo_relacion] = (rotacion_player[tipo_relacion] % max_disponibles) + 1
-    local indice_elegido = rotacion_player[tipo_relacion]
+    local indice_elegido = idx_random_no_repeat("player_" .. tipo_relacion, max_disponibles)
     local id_final = "st_pjnews_" .. tipo_relacion .. "_" .. tostring(indice_elegido)
 
     return game.translate_string(id_final), indice_elegido
@@ -109,7 +123,7 @@ function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_
     end
 
     local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto_formateado)
-    dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. game.translate_string(faccion_player), nil, 10, icono_muerto, "danger", "npc")
+    dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. game.translate_string(faccion_player), nil, 10, db.actor:character_icon(), "danger", "npc")
 
     return categoria_usada
 end
@@ -182,8 +196,6 @@ function al_cerrar_inventario(gui)
     end
 end
 
-rotacion_npc = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
-
 function buscar_respondedor_por_faccion(faccion_objetivo)
     local candidatos = {}
     for id, npc in pairs(db.storage) do
@@ -237,8 +249,7 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
         local cat = categoria_usada
         local max_frases = total_frases[cat]
         if not max_frases or max_frases == 0 then max_frases = 3 end
-        rotacion_npc[cat] = (rotacion_npc[cat] % max_frases) + 1
-        local idx = rotacion_npc[cat]
+        local idx = idx_random_no_repeat("npc_" .. cat, max_frases)
         local id_str = "st_pjnews_respuesta_" .. cat .. "_" .. tostring(idx)
         local plantilla = game.translate_string(id_str)
 
@@ -280,8 +291,7 @@ function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombr
     CreateTimeEvent("ipreports_Resp2_Event", "enviar_segunda_respuesta_pda", delay, function()
         local max_segresp = total_frases["segresp_" .. cat] or 0
         if max_segresp == 0 then max_segresp = 3 end
-        rotacion_npc["seg_" .. cat] = (rotacion_npc["seg_" .. cat] or 0) % max_segresp + 1
-        local idx = rotacion_npc["seg_" .. cat]
+        local idx = idx_random_no_repeat("seg_" .. cat, max_segresp)
         local id_str = "st_pjnews_segresp_" .. cat .. "_" .. tostring(idx)
         local plantilla = game.translate_string(id_str)
 
@@ -352,7 +362,39 @@ function procesar_reporte(datos)
     -- 1. Reporte del jugador en la PDA
     local categoria_usada = generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)
 
-    -- 2. Determinar qué facción busca para responder
+    -- 2. Recompensa por reporte (solo si no mato al tipo)
+    local reward_toggle = (ui_mcm and ui_mcm.get("ipreports/reward_toggle")) or false
+    local reward_amount = (ui_mcm and ui_mcm.get("ipreports/reward_amount")) or 10
+    local reward_interval = (ui_mcm and ui_mcm.get("ipreports/reward_interval")) or 5
+    if reward_toggle and reward_amount > 0 and not lo_mate_yo then
+        reward_corpse_counter = reward_corpse_counter + 1
+        if reward_corpse_counter >= reward_interval then
+            local total_money = reward_corpse_counter * reward_amount
+            db.actor:give_money(total_money)
+
+            local reward_msgs = {
+                game.translate_string("st_pjnews_reward_1"),
+                game.translate_string("st_pjnews_reward_2"),
+                game.translate_string("st_pjnews_reward_3"),
+                game.translate_string("st_pjnews_reward_4"),
+                game.translate_string("st_pjnews_reward_5"),
+            }
+            local msg_text = reward_msgs[math.random(1, #reward_msgs)]
+            msg_text = msg_text:gsub("{player}", nombre_player):gsub("{money}", tostring(total_money)):gsub("{count}", tostring(reward_corpse_counter))
+
+            local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+            local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+            local privado_str = game.translate_string("st_pjnews_privado")
+            local sender_str = game.translate_string("st_pjnews_reward_sender") .. ", " .. game.translate_string("st_pjnews_reward_sender_faction")
+            local msg = strformat("%s%s: %s%s", inc_clr, privado_str, def_clr, msg_text)
+            dynamic_news_helper.send_tip(msg, sender_str, nil, 10, "ui_inGame2_sid", "news", "npc")
+
+            pj_log("interactive", "Recompensa de %d rublos por %d cuerpo(s) otorgada", total_money, reward_corpse_counter)
+            reward_corpse_counter = 0
+        end
+    end
+
+    -- 3. Determinar qué facción busca para responder
     local faccion_que_responde = faccion_muerto
     if categoria_usada == "neutral" then
         faccion_que_responde = "stalker"
