@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="st_pjnews_respuesta_victima_1">
+        <text>¿Te haces el vivo, %1$s? Te tenemos en la mira. No te va a durar mucho la alegria en %2$s, sabelo.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_2">
+        <text>¡Callate la boca, basura! %1$s era mil veces mejor stalker que vos. Si te cruzo aca en %2$s te lleno de plomo.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_3">
+        <text>Disfruta mientras puedas, %1$s. El proximo en quedar tirado vas a ser vos. Juramos venganza por %3$s.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_enemigo_1">
+        <text>Bien muerto esta. Una lacra menos dando vueltas por aca.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_2">
+        <text>La Zona hace justicia a veces. El proximo sos vos si te descuidas.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_3">
+        <text>Al fin alguien limpio a esa rata. Buen aporte a la red.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_amistoso_1">
+        <text>Que desgracia, bo... %1$s era un tipazo. Hay que cuidar las espaldas aca en %2$s, se esta poniendo jodido.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_2">
+        <text>No te lo puedo creer... Que en paz descanse. Avisa si necesitas una mano para vengar a %3$s, %1$s.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_3">
+        <text>Puta madre, perdimos a otro de los buenos. Gracias por avisar, %1$s, andate con cuidado.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_neutral_1">
+        <text>Anotado. Trata de saquear rapido y salir de ahi antes de que caigan los mutantes por el olor.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_2">
+        <text>Gracias por el reporte, stalker. Evitare cruzar por esa zona de %2$s.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_3">
+        <text>Duro... un dia estas tomando vodka en la fogata y al otro sos comida de perros. Suerte.</text>
+    </string>
+</string_table>
