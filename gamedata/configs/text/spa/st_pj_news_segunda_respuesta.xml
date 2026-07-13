@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="st_pjnews_segresp_amistoso_1">
+        <text>Que lastima lo de %s, pobrecito. Se metio en una zona dificil en %s, los %s estan de luto.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_2">
+        <text>Escuche lo que le paso a %s en %s. No importa la faccion, siempre es una vida menos. Respetos para los %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_3">
+        <text>Pobre tipo, lo vi una vez. Era de los %s, parecia buen pibe. La Zona no perdona a nadie en %s.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_enemigo_1">
+        <text>Ja, me alegro. %s de los %s era un dolor de bolas. Se busco lo que le paso en %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_2">
+        <text>Uno menos para preocuparse. %s era un desecho de %s, bien ahi donde termino en %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_3">
+        <text>Los %s perdieron a uno, y a mi no me preocupa. %s no va a joder mas a nadie en %s.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_neutral_1">
+        <text>Voy escuchando... %s era de los %s. Nunca cruce palabra, pero en %s la muerte siempre esta al acecho.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_2">
+        <text>Que se le va a hacer. %s cayo en %s. Los %s deben estar rearmandose. La vida sigue.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_3">
+        <text>Me entere de lo de %s. La Zona se cobra otro. Espero que los %s sepan cuidarse en %s.</text>
+    </string>
+</string_table>

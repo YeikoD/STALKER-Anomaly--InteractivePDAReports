@@ -1,25 +1,22 @@
 -- ============================================================================
+-- LOGGER
+-- ============================================================================
+function pj_log(script, msg, ...)
+    printf("--- YeikoD - PJNews, " .. script .. ": " .. msg, ...)
+end
+
+-- ============================================================================
 -- CONFIGURACIÓN DEL MOD
 -- ============================================================================
-local segundos_de_espera = 2.0 -- Cuánto tardás vos en mandar tu mensaje al cerrar el inventario
+local segundos_de_espera = 2.0
 local modName = "PJNews"
 
 -- ============================================================================
 -- MEMORIA DEL MOD
 -- ============================================================================
 local cadaveres_reportados = {}
-local muertos_por_el_actor = {} 
-local cadaver_pendiente = nil 
-
-local total_frases = {
-    amistoso = 0,
-    neutral = 0,
-    enemigo = 0,
-    victima = 0
-}
-
-local rotacion_player = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
-local rotacion_npc    = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
+local muertos_por_el_actor = {}
+local cadaver_pendiente = nil
 
 -- ============================================================================
 -- 1. REGISTRO DE EVENTOS (CALLBACKS OFICIALES)
@@ -32,30 +29,14 @@ function on_game_start()
 end
 
 -- ============================================================================
--- 2. INICIO Y ESCANEO DE XMLs
+-- 2. CONTEO DE FRASES EN XML
 -- ============================================================================
-function al_entrar_al_mundo()
-    printf("--- YeikoD - ".. modName ..": Mod iniciado correctamente.")
-    cadaveres_reportados = {}
-    muertos_por_el_actor = {} 
-    cadaver_pendiente = nil
-    
-    total_frases.amistoso = contar_frases_en_xml("st_pjnews_amistoso")
-    total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
-    total_frases.enemigo = contar_frases_en_xml("st_pjnews_enemigo")
-    total_frases.victima = contar_frases_en_xml("st_pjnews_victima")
-    
-    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-    local texto_conexion = game.translate_string("st_pjnews_pda_con")
-    
-    if texto_conexion == "st_pjnews_pda_con" then
-        texto_conexion = "PDA: Conexion establecida."
-    end
-    
-    local msg = inc_clr .. texto_conexion
-    dynamic_news_helper.send_tip(msg, "Feed", nil, 10, "stalker", "news", "npc")
-end
+total_frases = {
+    amistoso = 0,
+    neutral = 0,
+    enemigo = 0,
+    victima = 0
+}
 
 function contar_frases_en_xml(prefijo_id)
     local contador = 1
@@ -70,134 +51,23 @@ function contar_frases_en_xml(prefijo_id)
     return contador - 1
 end
 
--- ============================================================================
--- 3. DETECTAR QUIÉN CAUSÓ LA MUERTE
--- ============================================================================
-function al_morir_npc(victim, killer)
-    if not (victim and killer) then return end
-    if killer:id() == db.actor:id() then
-        local id_victima = victim:id()
-        muertos_por_el_actor[id_victima] = true
-    end
-end
+rotacion_player = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
 
--- ============================================================================
--- 4. DETECTAR EL USO DEL NPC Y CIERRE DE INVENTARIO
--- ============================================================================
-function al_usar_npc(npc, actor)
-    if not (npc) then return end
-    if not (npc:alive()) then
-        local id_muerto = npc:id()
-        if cadaveres_reportados[id_muerto] then return end
-        cadaveres_reportados[id_muerto] = true
-        
-        cadaver_pendiente = {
-            id = id_muerto,
-            nombre = npc:character_name(),
-            faccion = npc:character_community(),
-            icono = npc:character_icon(),
-            asesinado_por_actor = muertos_por_el_actor[id_muerto] or false
-        }
-    end
-end
-
-function al_cerrar_inventario(gui)
-    if cadaver_pendiente then
-        local datos_envio = {
-            id = cadaver_pendiente.id,
-            nombre = cadaver_pendiente.nombre,
-            faccion = cadaver_pendiente.faccion,
-            icono = cadaver_pendiente.icono,
-            asesinado_por_actor = cadaver_pendiente.asesinado_por_actor
-        }
-        cadaver_pendiente = nil
-
-        CreateTimeEvent("PJNews_Delay_Event", "enviar_mensaje_pda", segundos_de_espera, function()
-            enviar_notificacion_pda(datos_envio)
-            return true
-        end)
-    end
-end
-
--- ============================================================================
--- 5. SELECCIÓN DE DIÁLOGO OPTIMIZADO
--- ============================================================================
 function obtener_frase_optima(tipo_relacion)
     local max_disponibles = total_frases[tipo_relacion] or 0
     if max_disponibles == 0 then return nil, 0 end
-    
+
     rotacion_player[tipo_relacion] = (rotacion_player[tipo_relacion] % max_disponibles) + 1
     local indice_elegido = rotacion_player[tipo_relacion]
     local id_final = "st_pjnews_" .. tipo_relacion .. "_" .. tostring(indice_elegido)
-    
+
     return game.translate_string(id_final), indice_elegido
 end
 
--- ============================================================================
--- 6. BUSCADOR DE NPCS VIVOS EN EL MAPA
--- ============================================================================
-function buscar_respondedor(faccion_objetivo)
-    local respondedor_candidato = nil
-    
-    for id, npc in pairs(db.storage) do
-        local obj = level.object_by_id(id)
-        if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
-            if obj:character_community() == faccion_objetivo then
-                respondedor_candidato = obj
-                break 
-            end
-        end
-    end
-    
-    if not respondedor_candidato then
-        for id, npc in pairs(db.storage) do
-            local obj = level.object_by_id(id)
-            if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
-                local relacion = relation_registry.community_relation(db.actor:character_community(), obj:character_community())
-                if relacion >= -400 then 
-                    respondedor_candidato = obj
-                    break
-                end
-            end
-        end
-    end
-    
-    if respondedor_candidato then
-        return {
-            nombre = respondedor_candidato:character_name(),
-            faccion = respondedor_candidato:character_community(),
-            icono = respondedor_candidato:character_icon()
-        }
-    end
-    
-    return nil
-end
-
--- ============================================================================
--- 7. ENVIAR TU INFORME Y PROGRAMAR LA RESPUESTA CON DELAY AZAROSO
--- ============================================================================
-function enviar_notificacion_pda(datos)
-    if not datos then return end
-
-    local nombre_muerto = datos.nombre
-    local faccion_muerto = datos.faccion
-    local icono_muerto = datos.icono
-    local lo_mate_yo = datos.asesinado_por_actor
-    
-    local nombre_player = db.actor:character_name()
-    local faccion_player = db.actor:character_community()
-    local zona_actual = game.translate_string(level.name())
-
+function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)
     local relacion_puntos = relation_registry.community_relation(faccion_player, faccion_muerto)
-    
-    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
 
-    local texto_formateado = ""
-    local plantilla = nil
-    local indice_elegido = 1
     local categoria_usada = ""
-
     if relacion_puntos >= 400 then
         categoria_usada = "amistoso"
     elseif relacion_puntos <= -400 then
@@ -210,18 +80,22 @@ function enviar_notificacion_pda(datos)
         categoria_usada = "neutral"
     end
 
-    plantilla, indice_elegido = obtener_frase_optima(categoria_usada)
+    pj_log("reportes", "DEBUG relacion=%s lo_mate_yo=%s faccion_player=%s faccion_muerto=%s categoria=%s", tostring(relacion_puntos), tostring(lo_mate_yo), faccion_player, faccion_muerto, categoria_usada)
 
+    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+
+    local plantilla, _ = obtener_frase_optima(categoria_usada)
+
+    local texto_formateado = ""
     if plantilla then
-        -- Seguro de vida pcall para formatear de izquierda a derecha sin errores
         local status, res = pcall(function()
             return string.format(plantilla, nombre_muerto, zona_actual, faccion_muerto)
         end)
-        
         if status then
             texto_formateado = res
         else
-            printf("--- YeikoD - ERROR formateo PJ: %s", tostring(res))
+            pj_log("reportes", "ERROR formateo: %s", tostring(res))
             texto_formateado = "Reporto el cuerpo de " .. nombre_muerto .. " en " .. zona_actual .. "."
         end
     end
@@ -230,60 +104,287 @@ function enviar_notificacion_pda(datos)
         texto_formateado = "Reportando un cuerpo en " .. zona_actual .. ". Se trata de " .. nombre_muerto .. "."
     end
 
-    -- 1. Se envia TU reporte en la PDA
     local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto_formateado)
     dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. game.translate_string(faccion_player), nil, 10, icono_muerto, "danger", "npc")
-    
-    -- 2. Buscamos quien te va a responder
+
+    return categoria_usada
+end
+
+-- ============================================================================
+-- 3. INICIO Y ESCANEO DE XMLs
+-- ============================================================================
+function al_entrar_al_mundo()
+    pj_log("interactive", "Mod iniciado correctamente.")
+    cadaveres_reportados = {}
+    muertos_por_el_actor = {}
+    cadaver_pendiente = nil
+
+    total_frases.amistoso = contar_frases_en_xml("st_pjnews_amistoso")
+    total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
+    total_frases.enemigo = contar_frases_en_xml("st_pjnews_enemigo")
+    total_frases.victima = contar_frases_en_xml("st_pjnews_victima")
+
+    pj_log("interactive", "DEBUG total_frases: amistoso=%s neutral=%s enemigo=%s victima=%s", tostring(total_frases.amistoso), tostring(total_frases.neutral), tostring(total_frases.enemigo), tostring(total_frases.victima))
+
+    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+    local texto_conexion = game.translate_string("st_pjnews_pda_con")
+
+    if texto_conexion == "st_pjnews_pda_con" then
+        texto_conexion = "PDA: Conexion establecida."
+    end
+
+    local msg = inc_clr .. texto_conexion
+    dynamic_news_helper.send_tip(msg, "Feed", nil, 10, "stalker", "news", "npc")
+end
+
+-- ============================================================================
+-- 3. DETECTAR QUIÉN CAUSÓ LA MUERTE
+-- ============================================================================
+function al_morir_npc(victim, killer)
+    if not (victim and killer) then return end
+    if killer:id() == db.actor:id() then
+        muertos_por_el_actor[victim:id()] = true
+    end
+end
+
+-- ============================================================================
+-- 4. DETECTAR EL USO DEL NPC Y CIERRE DE INVENTARIO
+-- ============================================================================
+function al_usar_npc(npc, actor)
+    if not (npc) then return end
+    if not (npc:alive()) then
+        local id_muerto = npc:id()
+        if cadaveres_reportados[id_muerto] then return end
+        cadaveres_reportados[id_muerto] = true
+
+        cadaver_pendiente = {
+            id = id_muerto,
+            nombre = npc:character_name(),
+            faccion = npc:character_community(),
+            icono = npc:character_icon(),
+            asesinado_por_actor = muertos_por_el_actor[id_muerto] or false
+        }
+    end
+end
+
+function al_cerrar_inventario(gui)
+    if cadaver_pendiente then
+        local datos = {
+            id = cadaver_pendiente.id,
+            nombre = cadaver_pendiente.nombre,
+            faccion = cadaver_pendiente.faccion,
+            icono = cadaver_pendiente.icono,
+            asesinado_por_actor = cadaver_pendiente.asesinado_por_actor
+        }
+        cadaver_pendiente = nil
+
+        CreateTimeEvent("PJNews_Delay_Event", "procesar_reporte", segundos_de_espera, function()
+            procesar_reporte(datos)
+            return true
+        end)
+    end
+end
+
+rotacion_npc = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
+
+function buscar_respondedor_por_faccion(faccion_objetivo)
+    for id, npc in pairs(db.storage) do
+        local obj = level.object_by_id(id)
+        if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
+            if obj:character_community() == faccion_objetivo then
+                return {
+                    nombre = obj:character_name(),
+                    faccion = obj:character_community(),
+                    icono = obj:character_icon()
+                }
+            end
+        end
+    end
+    return nil
+end
+
+function buscar_respondedor_distinta_faccion(faccion_excluida)
+    local candidatos = {}
+    for id, npc in pairs(db.storage) do
+        local obj = level.object_by_id(id)
+        if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
+            local fac = obj:character_community()
+            if fac ~= faccion_excluida then
+                candidatos[#candidatos + 1] = {
+                    nombre = obj:character_name(),
+                    faccion = fac,
+                    icono = obj:character_icon()
+                }
+            end
+        end
+    end
+    if #candidatos == 0 then return nil end
+    return candidatos[math.random(1, #candidatos)]
+end
+
+function sustituir_plantilla_primera(template, player, zone, victim)
+    local result = template
+    result = result:gsub("{player}", player)
+    result = result:gsub("{zone}", zone)
+    result = result:gsub("{victim}", victim)
+    return result
+end
+
+function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_actual, nombre_muerto, faccion_player, delay_min, delay_max, r2_data, r2_cat, r2_delay_min, r2_delay_max, faccion_muerto)
+    local delay = math.random(delay_min, delay_max) / 10
+    pj_log("respuestas", "NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
+
+    CreateTimeEvent("PJNews_Resp1_Event", "enviar_respuesta_pda", delay, function()
+        local cat = categoria_usada
+        local max_frases = total_frases[cat]
+        if not max_frases or max_frases == 0 then max_frases = 3 end
+        rotacion_npc[cat] = (rotacion_npc[cat] % max_frases) + 1
+        local idx = rotacion_npc[cat]
+        local id_str = "st_pjnews_respuesta_" .. cat .. "_" .. tostring(idx)
+        local plantilla = game.translate_string(id_str)
+
+        pj_log("respuestas", "DEBUG cat=%s total=%s idx=%s id_str=%s", cat, tostring(total_frases[cat]), tostring(idx), id_str)
+
+        if plantilla == id_str then
+            pj_log("respuestas", "DEBUG string no encontrada: %s", id_str)
+            return true
+        end
+
+        local texto = sustituir_plantilla_primera(plantilla, nombre_player, zona_actual, nombre_muerto)
+
+        local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+        local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+        local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto)
+
+        dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. game.translate_string(npc.faccion), nil, 10, npc.icono, "news", "npc")
+        pj_log("respuestas", "Respuesta enviada por: %s, texto: %s", npc.nombre, texto)
+
+        -- Encadenar segunda respuesta si existe r2_data
+        if r2_data then
+            pj_log("respuestas", "Segunda respuesta encadenada: %s (rango %s-%s deciseg)", r2_data.nombre, tostring(r2_delay_min), tostring(r2_delay_max))
+            programar_segunda_respuesta(r2_data, r2_cat, faccion_muerto, nombre_muerto, zona_actual, nombre_player, r2_delay_min, r2_delay_max)
+        end
+
+        return true
+    end)
+end
+
+function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombre_muerto, zona_actual, nombre_player, delay_min, delay_max)
+    local cat = categoria_usada
+    if cat == "victima" then
+        cat = "enemigo"
+    end
+
+    local delay = math.random(delay_min, delay_max) / 10
+    pj_log("respuestas", "Segundo NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
+
+    CreateTimeEvent("PJNews_Resp2_Event", "enviar_segunda_respuesta_pda", delay, function()
+        rotacion_npc["seg_" .. cat] = (rotacion_npc["seg_" .. cat] or 0) % 3 + 1
+        local idx = rotacion_npc["seg_" .. cat]
+        local id_str = "st_pjnews_segresp_" .. cat .. "_" .. tostring(idx)
+        local plantilla = game.translate_string(id_str)
+
+        pj_log("respuestas", "DEBUG segundaresp cat=%s idx=%s id_str=%s", cat, tostring(idx), id_str)
+
+        if plantilla == id_str then
+            pj_log("respuestas", "DEBUG string segunda respuesta no encontrada: %s", id_str)
+            return true
+        end
+
+        local texto = ""
+        local ok, res = pcall(function()
+            return string.format(plantilla, nombre_muerto, zona_actual, faccion_muerto)
+        end)
+        if ok then
+            texto = res
+        else
+            pj_log("respuestas", "DEBUG error formateo segunda respuesta: %s", tostring(res))
+            texto = "Algo escuche sobre lo que paso en " .. zona_actual .. "."
+        end
+
+        local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+        local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+        local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto)
+
+        dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. game.translate_string(npc.faccion), nil, 10, npc.icono, "news", "npc")
+        pj_log("respuestas", "Segunda respuesta enviada por: %s", npc.nombre)
+        return true
+    end)
+end
+
+-- ============================================================================
+-- 5. ORQUESTACIÓN: REPORTE + RESPUESTAS
+-- ============================================================================
+function procesar_reporte(datos)
+    if not datos then return end
+
+    local nombre_muerto = datos.nombre
+    local faccion_muerto = datos.faccion
+    local icono_muerto = datos.icono
+    local lo_mate_yo = datos.asesinado_por_actor
+
+    local nombre_player = db.actor:character_name()
+    local faccion_player = db.actor:character_community()
+    local zona_actual = game.translate_string(level.name())
+
+    -- 1. Reporte del jugador en la PDA
+    local categoria_usada = generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)
+
+    -- 2. Determinar qué facción busca para responder
     local faccion_que_responde = faccion_muerto
     if categoria_usada == "neutral" then
         faccion_que_responde = "stalker"
     end
 
-    local npc_respondedor = buscar_respondedor(faccion_que_responde)
+    pj_log("interactive", "DEBUG procesar_reporte: categoria=%s faccion_responde=%s", categoria_usada, faccion_que_responde)
 
-    if npc_respondedor then
-        local prob = 40
-        if ui_mcm then
-            prob = ui_mcm.get("pj_news/respuesta_probabilidad") or 40
-        end
-        if math.random() <= prob / 100 then
-        -- CALCULAMOS EL TIEMPO ALEATORIO: math.random(30, 50) devuelve un entero de 30 a 50.
-        -- Al dividirlo entre 10, nos da un float espectacular entre 3.0 y 5.0 segundos.
-        local delay_aleatorio = math.random(30, 60) / 10
-        printf("--- YeikoD - ".. modName ..": NPC '%s' respondera en %s segundos...", npc_respondedor.nombre, tostring(delay_aleatorio))
-
-        -- 3. Creamos el evento diferido con el tiempo al azar
-        CreateTimeEvent("PJNews_Respuesta_Event", "enviar_respuesta_pda", delay_aleatorio, function()
-            local cat = categoria_usada
-            rotacion_npc[cat] = (rotacion_npc[cat] % (total_frases[cat] or 3)) + 1
-            local resp_indice = rotacion_npc[cat]
-            local id_respuesta = "st_pjnews_respuesta_" .. cat .. "_" .. tostring(resp_indice)
-            local plantilla_respuesta = game.translate_string(id_respuesta)
-            
-            if plantilla_respuesta == id_respuesta then return true end
-
-            local texto_respuesta = ""
-            local status_resp, res_resp = pcall(function()
-                return string.format(plantilla_respuesta, nombre_player, zona_actual, nombre_muerto)
-            end)
-
-            if status_resp then
-                texto_respuesta = res_resp
-            else
-                texto_respuesta = "Recibido tu reporte, andate con ojo por ahi."
-            end
-
-            -- Estilo visual del NPC respondiendo
-            local msg_resp = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto_respuesta)
-
-            dynamic_news_helper.send_tip(msg_resp, npc_respondedor.nombre .. ", " .. game.translate_string(npc_respondedor.faccion), nil, 10, npc_respondedor.icono, "news", "npc")
-            printf("--- YeikoD - Respuesta enviada exitosamente por: %s", npc_respondedor.nombre)
-            
-            return true
-        end)
-        end
+    -- 3. Leer probabilidades y tiempos del MCM
+    local prob_primera = 40
+    local prob_segunda = 30
+    local tiempo1_min = 30
+    local tiempo1_max = 60
+    local tiempo2_min = 40
+    local tiempo2_max = 80
+    if ui_mcm then
+        prob_primera = ui_mcm.get("pj_news/respuesta_probabilidad") or 40
+        prob_segunda = ui_mcm.get("pj_news/segunda_respuesta_probabilidad") or 30
+        tiempo1_min = ui_mcm.get("pj_news/tiempo_respuesta_1_min") or 30
+        tiempo1_max = ui_mcm.get("pj_news/tiempo_respuesta_1_max") or 60
+        tiempo2_min = ui_mcm.get("pj_news/tiempo_respuesta_2_min") or 40
+        tiempo2_max = ui_mcm.get("pj_news/tiempo_respuesta_2_max") or 80
     end
-    
+
+    if tiempo1_max < tiempo1_min then tiempo1_max = tiempo1_min end
+    if tiempo2_max < tiempo2_min then tiempo2_max = tiempo2_min end
+
+    -- 4. Buscar respondedores
+    local r2_cat = categoria_usada
+    if r2_cat == "victima" then r2_cat = "enemigo" end
+
+    local r1 = buscar_respondedor_por_faccion(faccion_que_responde)
+    local r2 = buscar_respondedor_distinta_faccion(faccion_que_responde)
+
+    -- 5. Decidir si cada respuesta pasa el random
+    local r1_pasa = r1 and math.random() <= prob_primera / 100
+    local r2_pasa = r2 and math.random() <= prob_segunda / 100
+
+    -- 6. Primera respuesta (misma facción). Si existe, encadena la segunda
+    if r1_pasa then
+        pj_log("interactive", "Primera respuesta encontrada: %s", r1.nombre)
+        local r2_para_encadenar = r2_pasa and r2 or nil
+        programar_primera_respuesta(r1, categoria_usada, nombre_player, zona_actual, nombre_muerto, faccion_player, tiempo1_min, tiempo1_max, r2_para_encadenar, r2_cat, tiempo2_min, tiempo2_max, faccion_muerto)
+    elseif r1 then
+        pj_log("interactive", "DEBUG respondedor existe pero no paso el random")
+    else
+        pj_log("interactive", "DEBUG no se encontro respondedor para faccion %s", faccion_que_responde)
+    end
+
+    -- 7. Segunda respuesta SOLO si no hubo primera (no encadenada)
+    if not r1_pasa and r2_pasa then
+        pj_log("interactive", "Segunda respuesta (sin primera): %s", r2.nombre)
+        programar_segunda_respuesta(r2, r2_cat, faccion_muerto, nombre_muerto, zona_actual, nombre_player, tiempo2_min, tiempo2_max)
+    end
+
     muertos_por_el_actor[datos.id] = nil
 end

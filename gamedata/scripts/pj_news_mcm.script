@@ -4,7 +4,12 @@ function on_mcm_load()
         sh = true,
         gr = {
             { id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_menu_pj_news", size = { 512, 50 }, spacing = 20 },
-            { id = "respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 40 }
+            { id = "respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 40 },
+            { id = "segunda_respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 30 },
+            { id = "tiempo_respuesta_1_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 30 },
+            { id = "tiempo_respuesta_1_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 60 },
+            { id = "tiempo_respuesta_2_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 30 },
+            { id = "tiempo_respuesta_2_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 60 }
         }
     }
 end

@@ -12,6 +12,37 @@
         <text>Probabilidad de Respuesta (%)</text>
     </string>
     <string id="ui_mcm_pj_news_respuesta_probabilidad_desc">
-        <text>Probabilidad de que un NPC responda al reporte.\n0% = Nunca responden, 100% = Siempre responden.</text>
+        <text>Probabilidad de que un NPC de la misma faccion responda al reporte.\n0% = Nunca, 100% = Siempre.</text>
+    </string>
+    <string id="ui_mcm_pj_news_segunda_respuesta_probabilidad">
+        <text>Probabilidad de Comentario Externo (%)</text>
+    </string>
+    <string id="ui_mcm_pj_news_segunda_respuesta_probabilidad_desc">
+        <text>Probabilidad de que un NPC de otra faccion comente sobre lo ocurrido.\n0% = Nunca, 100% = Siempre.</text>
+    </string>
+
+    <string id="ui_mcm_pj_news_tiempo_respuesta_1_min">
+        <text>Tiempo Respuesta 1 - Mínimo</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_1_min_desc">
+        <text>Tiempo mínimo (en decisegundos) antes de que responda el primer NPC.\n10 = 1 seg, 30 = 3 seg, 100 = 10 seg.</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_1_max">
+        <text>Tiempo Respuesta 1 - Máximo</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_1_max_desc">
+        <text>Tiempo máximo (en decisegundos) antes de que responda el primer NPC.\n10 = 1 seg, 60 = 6 seg, 100 = 10 seg.</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_2_min">
+        <text>Tiempo Respuesta 2 - Mínimo</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_2_min_desc">
+        <text>Tiempo mínimo (en decisegundos) antes de que responda el segundo NPC.\n10 = 1 seg, 40 = 4 seg, 100 = 10 seg.</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_2_max">
+        <text>Tiempo Respuesta 2 - Máximo</text>
+    </string>
+    <string id="ui_mcm_pj_news_tiempo_respuesta_2_max_desc">
+        <text>Tiempo máximo (en decisegundos) antes de que responda el segundo NPC.\n10 = 1 seg, 80 = 8 seg, 100 = 10 seg.</text>
     </string>
 </string_table>
