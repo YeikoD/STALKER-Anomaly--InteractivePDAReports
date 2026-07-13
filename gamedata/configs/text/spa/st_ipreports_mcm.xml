@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="ui_mcm_menu_ipreports">
+        <text>Interactive PDA Reports</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_title">
+        <text>Configuración</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_factorEgo">
+        <text>Factor Ego (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_factorEgo_desc">
+        <text>Probabilidad de reportar el cuerpo de una víctima.\n100% = Todos los cuerpos, 50% = 1 de cada 2, 0% = Nunca.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_respuesta_probabilidad">
+        <text>Probabilidad de Respuesta (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_respuesta_probabilidad_desc">
+        <text>Probabilidad de que un NPC de la misma faccion responda al reporte.\n0% = Nunca, 100% = Siempre.</text>
+    </string>
+    <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad">
+        <text>Probabilidad de Comentario Externo (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad_desc">
+        <text>Probabilidad de que un NPC de otra faccion comente sobre lo ocurrido.\n0% = Nunca, 100% = Siempre.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_min">
+        <text>Tiempo Respuesta 1 - Mínimo</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_min_desc">
+        <text>Tiempo minimo (en decisegundos) antes de que responda el primer NPC.\n10 = 1 seg, 30 = 3 seg, 100 = 10 seg.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_max">
+        <text>Tiempo Respuesta 1 - Máximo</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_max_desc">
+        <text>Tiempo maximo (en decisegundos) antes de que responda el primer NPC.\n10 = 1 seg, 60 = 6 seg, 100 = 10 seg.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_min">
+        <text>Tiempo Respuesta 2 - Mínimo</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_min_desc">
+        <text>Tiempo minimo (en decisegundos) antes de que responda el segundo NPC.\n10 = 1 seg, 40 = 4 seg, 100 = 10 seg.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_max">
+        <text>Tiempo Respuesta 2 - Máximo</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_max_desc">
+        <text>Tiempo maximo (en decisegundos) antes de que responda el segundo NPC.\n10 = 1 seg, 80 = 8 seg, 100 = 10 seg.</text>
+    </string>
+</string_table>

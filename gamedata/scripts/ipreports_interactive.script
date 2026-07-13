@@ -2,14 +2,14 @@
 -- LOGGER
 -- ============================================================================
 function pj_log(script, msg, ...)
-    printf("--- YeikoD - PJNews, " .. script .. ": " .. msg, ...)
+    printf("--- YeikoD - Interactive PDA Reports, " .. script .. ": " .. msg, ...)
 end
 
 -- ============================================================================
 -- CONFIGURACIÓN DEL MOD
 -- ============================================================================
 local segundos_de_espera = 2.0
-local modName = "PJNews"
+local modName = "ipreports"
 
 -- ============================================================================
 -- MEMORIA DEL MOD
@@ -179,7 +179,7 @@ function al_cerrar_inventario(gui)
         }
         cadaver_pendiente = nil
 
-        CreateTimeEvent("PJNews_Delay_Event", "procesar_reporte", segundos_de_espera, function()
+        CreateTimeEvent("ipreports_Delay_Event", "procesar_reporte", segundos_de_espera, function()
             procesar_reporte(datos)
             return true
         end)
@@ -189,11 +189,12 @@ end
 rotacion_npc = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
 
 function buscar_respondedor_por_faccion(faccion_objetivo)
+    local candidatos = {}
     for id, npc in pairs(db.storage) do
         local obj = level.object_by_id(id)
         if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
             if obj:character_community() == faccion_objetivo then
-                return {
+                candidatos[#candidatos + 1] = {
                     nombre = obj:character_name(),
                     faccion = obj:character_community(),
                     icono = obj:character_icon()
@@ -201,7 +202,8 @@ function buscar_respondedor_por_faccion(faccion_objetivo)
             end
         end
     end
-    return nil
+    if #candidatos == 0 then return nil end
+    return candidatos[math.random(1, #candidatos)]
 end
 
 function buscar_respondedor_distinta_faccion(faccion_excluida)
@@ -235,7 +237,7 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
     local delay = math.random(delay_min, delay_max) / 10
     pj_log("respuestas", "NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
 
-    CreateTimeEvent("PJNews_Resp1_Event", "enviar_respuesta_pda", delay, function()
+    CreateTimeEvent("ipreports_Resp1_Event", "enviar_respuesta_pda", delay, function()
         local cat = categoria_usada
         local max_frases = total_frases[cat]
         if not max_frases or max_frases == 0 then max_frases = 3 end
@@ -279,7 +281,7 @@ function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombr
     local delay = math.random(delay_min, delay_max) / 10
     pj_log("respuestas", "Segundo NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
 
-    CreateTimeEvent("PJNews_Resp2_Event", "enviar_segunda_respuesta_pda", delay, function()
+    CreateTimeEvent("ipreports_Resp2_Event", "enviar_segunda_respuesta_pda", delay, function()
         rotacion_npc["seg_" .. cat] = (rotacion_npc["seg_" .. cat] or 0) % 3 + 1
         local idx = rotacion_npc["seg_" .. cat]
         local id_str = "st_pjnews_segresp_" .. cat .. "_" .. tostring(idx)
@@ -319,6 +321,15 @@ end
 function procesar_reporte(datos)
     if not datos then return end
 
+    local factorEgo = 100
+    if ui_mcm then
+        factorEgo = ui_mcm.get("ipreports/factorEgo") or 100
+    end
+    if math.random() > factorEgo / 100 then
+        pj_log("interactive", "DEBUG factorEgo: no se reporta este cadaver (%s%%)", tostring(factorEgo))
+        return
+    end
+
     local nombre_muerto = datos.nombre
     local faccion_muerto = datos.faccion
     local icono_muerto = datos.icono
@@ -347,12 +358,12 @@ function procesar_reporte(datos)
     local tiempo2_min = 40
     local tiempo2_max = 80
     if ui_mcm then
-        prob_primera = ui_mcm.get("pj_news/respuesta_probabilidad") or 40
-        prob_segunda = ui_mcm.get("pj_news/segunda_respuesta_probabilidad") or 30
-        tiempo1_min = ui_mcm.get("pj_news/tiempo_respuesta_1_min") or 30
-        tiempo1_max = ui_mcm.get("pj_news/tiempo_respuesta_1_max") or 60
-        tiempo2_min = ui_mcm.get("pj_news/tiempo_respuesta_2_min") or 40
-        tiempo2_max = ui_mcm.get("pj_news/tiempo_respuesta_2_max") or 80
+        prob_primera = ui_mcm.get("ipreports/respuesta_probabilidad") or 40
+        prob_segunda = ui_mcm.get("ipreports/segunda_respuesta_probabilidad") or 30
+        tiempo1_min = ui_mcm.get("ipreports/tiempo_respuesta_1_min") or 30
+        tiempo1_max = ui_mcm.get("ipreports/tiempo_respuesta_1_max") or 60
+        tiempo2_min = ui_mcm.get("ipreports/tiempo_respuesta_2_min") or 40
+        tiempo2_max = ui_mcm.get("ipreports/tiempo_respuesta_2_max") or 80
     end
 
     if tiempo1_max < tiempo1_min then tiempo1_max = tiempo1_min end

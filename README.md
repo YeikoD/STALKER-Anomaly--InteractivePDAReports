@@ -1,103 +1,89 @@
-### 📡 ¿Qué es PJNews Interactive?
+### ¿Qué es Interactive PDA Reports?
 
-Es un mod de inmersión para **S.T.A.L.K.E.R. Anomaly** que hace que tu personaje deje de ser el mudo de la Zona y participe activamente en la red de la PDA.
+Mod de inmersión para **S.T.A.L.K.E.R. Anomaly** que hace que tu personaje y los NPCs de la Zona se comuniquen por radio a través de la red de la PDA.
 
-- **Tu PJ ahora habla:** Cada vez que termines de saquear el cuerpo de un stalker, tu personaje va a mandar de forma automática un reporte de radio a la red general `[Todos]`. El mensaje cambia según tu relación con el finado (si era un amigo, un neutral, un enemigo, o si lo liquidaste vos mismo).
-    
-- **La Zona te responde:** Si hay stalkers aliados o de la misma facción vivos en el mapa, te van a contestar el mensaje por la PDA con un delay súper realista de entre 3 y 5 segundos (simulando que están leyendo y tipeando en su aparato).
-    
-- **Vos controlás la radio:** Mediante el menú de opciones (MCM), podés deslizar una barra para elegir qué tan seguido te responden (de 0% a 100%). Por defecto viene en un 40% para que sea recontra realista y no sature la pantalla.
-    
-- **Estilo 100% nativo:** Se integra perfecto con la interfaz del juego, mostrando los nombres y facciones reales en el encabezado de los mensajes.
-    
+- **Tu PJ reporta:** Al saquear un cuerpo, tu personaje envía automáticamente un mensaje a `[Todos]`. El texto cambia según tu relación con el muerto:
+  - **Amistoso** (relación ≥ 400): Lamento la pérdida de un aliado.
+  - **Neutral** (entre -400 y 400): Reporte genérico de un cuerpo.
+  - **Enemigo** (≤ -400, no lo mataste vos): Reportás el cuerpo de un enemigo.
+  - **Víctima** (≤ -400, lo mataste vos): Te burlás de haberlo liquidado.
 
-Básicamente, es el mod definitivo para que sientas que de verdad hay gente del otro lado de la radio y que tus acciones en la Zona tienen repercusión en la red.
-## 🔧 3. Guía de Instalación
+- **NPCs responden:** Si hay stalkers de la misma facción del muerto vivos en el mapa, uno de ellos te responde por PDA después de un delay aleatorio configurable. El tono de la respuesta coincide con tu reporte (si te burlaste, te responden con amenazas).
 
-### 📦 Opción A: Mod Organizer 2 (Recomendado)
+- **Comentario externo:** Además, un NPC de una facción distinta a la del muerto puede comentar lo ocurrido, con su propio delay. La segunda respuesta espera a que la primera se haya enviado antes de dispararse.
 
-1. **Descargá** el archivo comprimido del mod (`.zip` o `.7z`).
-    
-2. En MO2, hacé clic en el botón **"Instalar un nuevo mod desde un archivo"** (el ícono de la caja con el disco arriba a la izquierda).
-    
-3. Seleccioná el archivo descargado.
-    
-4. **Activá la casilla** del mod en el panel izquierdo de MO2.
-    
-5. ¡Listo! Ya podés iniciar el juego.
-    
+- **Factor Ego:** Controlá qué porcentaje de cuerpos se reportan realmente. A 100% se reportan todos; a 50% se reporta 1 de cada 2.
 
-### 📂 Opción B: Instalación Manual
+### Instalación
 
-1. **Extraé** el contenido del archivo comprimido.
-    
-2. Copiá la carpeta `gamedata` resultante.
-    
-3. **Pegala** dentro de la carpeta raíz de tu **S.T.A.L.K.E.R. Anomaly** (donde se encuentra el ejecutable `AnomalyDX11.exe`).
-    
-4. Si el sistema te pide fusionar carpetas, seleccioná **Sí a todo**.
-    
+Opción A — **Mod Organizer 2**: Instalá el `.zip` o `.7z` desde el botón "Instalar un nuevo mod desde un archivo". Activá la casilla.
 
-> ℹ️ _Nota: Este mod es limpio y no sobrescribe ningún archivo nativo del juego._
+Opción B — **Manual**: Extraé la carpeta `gamedata` dentro de la raíz de S.T.A.L.K.E.R. Anomaly.
 
-## ⚙️ 4. Configuración (Menú MCM)
+> El mod no sobrescribe archivos nativos del juego.
 
-Si tenés instalado **MCM (Mod Configuration Menu)**, podés ajustar el comportamiento del mod en tiempo real desde las opciones del juego:
+### Configuración (MCM)
 
-- **Probabilidad de Respuesta (%):** Un slider interactivo que va de `0%` a `100%` (en pasos de 5% en 5%).
-    
-    - **0%:** Desactiva por completo las respuestas de los NPCs (solo verás tus propios reportes).
-        
-    - **40% (Por defecto):** El equilibrio recomendado para mantener el realismo sin saturar la PDA de spam.
-        
-    - **100%:** Los NPCs responderán siempre que haya un emisor válido en el mapa (ideal para testeos).
-        
+Si tenés MCM instalado, aparece "Interactive PDA Reports" en el menú de opciones. Sliders disponibles:
 
-> 💡 **Compatibilidad:** Si no usás MCM, el mod lo detectará de forma segura y aplicará automáticamente el valor predeterminado del **40%** sin generar errores ni _crashes_.
+| Slider | Descripción | Defecto |
+|---|---|---|
+| **Factor Ego** | Probabilidad de que un cuerpo sea reportado. 100% = siempre, 0% = nunca. | 100% |
+| **Probabilidad de Respuesta** | Probabilidad de que un NPC de la misma facción conteste. | 40% |
+| **Probabilidad de Comentario Externo** | Probabilidad de que un NPC de otra facción comente. | 30% |
+| **Tiempo Respuesta 1 (Mín/Máx)** | Rango de delay (en decisegundos) para la primera respuesta. 30 = 3 seg. | 30-60 |
+| **Tiempo Respuesta 2 (Mín/Máx)** | Rango de delay (en decisegundos) para el comentario externo. | 40-80 |
 
-## ✍️ 5. Localización y Expansión (XML)
+Si no usás MCM, el mod aplica los valores por defecto automáticamente.
 
-Podés editar y agregar tus propias frases abriendo los archivos de la carpeta `gamedata/configs/text/` con cualquier editor de texto plano (como _Notepad++_ o _VS Code_).
+### Localización y Expansión (XML)
 
-### ⚠️ Regla de Oro para el Reporte del Jugador
+Los textos están en `gamedata/configs/text/spa/`. Editá los archivos `st_ipreports_*.xml` y `st_pj_*.xml` con cualquier editor de texto.
 
-_(Textos de estado: Amistoso, Neutral, Enemigo, Víctima)_
+#### Reporte del Jugador
 
-El script inyecta exactamente tres parámetros en tus textos. Debés usar **exactamente tres modificadores `%s`** (sin números ni signos de pesos), respetando estrictamente el orden de izquierda a derecha:
+Archivos: `st_pj_amistoso.xml`, `st_pj_neutral.xml`, `st_pj_enemigo.xml`, `st_ipreports_victima.xml`.
 
-|**Modificador**|**Información que inyecta**|
-|---|---|
-|**Primer `%s`**|Nombre del fallecido.|
-|**Segundo `%s`**|Mapa / Zona actual (Ej: _Cordon_).|
-|**Tercer `%s`**|Nombre de la facción del fallecido.|
+Tres `%s` en orden: **nombre del muerto**, **zona actual**, **facción del muerto**.
 
-**Ejemplo de plantilla válida:**
-
-XML
-
-```
+```xml
 <string id="st_pjnews_amistoso_1">
     <text>Encontré el cuerpo de %s en %s. Descansa en paz, camarada de %s.</text>
 </string>
 ```
 
-### 💬 Regla para las Respuestas de los NPCs (`st_pjnews_respuestas.xml`)
+#### Respuesta del NPC (primera)
 
-Para las respuestas de los _stalkers_ que te escuchan por la radio, **el orden de las variables cambia**. Aquí sí está permitido (y se recomienda) indexar los parámetros para estructurar la frase como prefieras:
+Archivo: `st_pj_respuestas.xml`.
 
-|**Variable**|**Información que representa**|
-|---|---|
-|**`%1$s`**|Tu nombre de jugador.|
-|**`%2$s`**|Zona / Mapa actual.|
-|**`%3$s`**|Nombre del fallecido.|
+Usa `{player}`, `{zone}`, `{victim}` como placeholders (en cualquier orden y sin límite de cantidad).
 
-**Ejemplo de plantilla de respuesta válida:**
-
-XML
-
-```
-<string id="st_pjnews_respuesta_amistoso_1">
-    <text>¡No puede ser! Recibido %1$s, gracias por el aviso. Pobre pibe, cuidate el lomo en %2$s.</text>
+```xml
+<string id="st_pjnews_respuesta_victima_1">
+    <text>¿Te haces el vivo, {player}? Te tenemos en la mira en {zone}.</text>
 </string>
 ```
 
+#### Comentario Externo (segunda respuesta)
+
+Archivo: `st_ipreports_segunda_respuesta.xml`.
+
+Usa `%s` simple en orden: **nombre del muerto**, **zona**, **facción del muerto**.
+
+### Archivos del Mod
+
+```
+gamedata/
+├── scripts/
+│   ├── ipreports_interactive.script   # Lógica principal
+│   └── ipreports_mcm.script           # Configuración MCM
+└── configs/text/spa/
+    ├── st_ipreports.xml               # Strings base (Todos, conexión)
+    ├── st_ipreports_mcm.xml           # Traducciones del MCM
+    ├── st_ipreports_victima.xml       # Frases de víctima (lo maté yo)
+    ├── st_ipreports_segunda_respuesta.xml  # Comentarios externos
+    ├── st_pj_amistoso.xml             # Frases de aliado muerto
+    ├── st_pj_neutral.xml              # Frases de neutral muerto
+    ├── st_pj_enemigo.xml              # Frases de enemigo muerto
+    └── st_pj_respuestas.xml           # Respuestas de NPCs
+```
