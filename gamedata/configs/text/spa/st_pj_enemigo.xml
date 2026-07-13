@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<string_table>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    REPORTE DEL JUGADOR (relacion ENEMIGA)
+    Formato %s: 1° = nombre victima, 2° = zona, 3° = faccion
+--><string_table>
     <string id="st_pjnews_enemigo_1">
         <text>Encontre el cuerpo de %s en %s. Era de los %s, que se pudra. Un enemigo menos para preocuparse.</text>
     </string>
@@ -7,6 +10,22 @@
         <text>Un %s mas que se fue al otro barrio. Cayo en %s. Era de los %s, buena limpieza, ojala se pudra en la Zona.</text>
     </string>
     <string id="st_pjnews_enemigo_3">
-        <text>Muerte reportada: %s de los %s, cayo en %s. A mi no me preocupa, uno menos.</text>
+        <text>Muerte reportada: %s cayo en %s, era de los %s. A mi no me preocupa, uno menos.</text>
+    </string>
+
+    <string id="st_pjnews_enemigo_4">
+        <text>Se acuerdan de %s? Aparecio muerto en %s, era de los %s. No espero lagrimas de nadie.</text>
+    </string>
+    <string id="st_pjnews_enemigo_5">
+        <text>Escucha esto: %s se comio una bala en %s, era de los %s. Me alegra el dia anunciarlo.</text>
+    </string>
+    <string id="st_pjnews_enemigo_6">
+        <text>Justicia caida del cielo. %s aparecio sin vida en %s, era de los %s. Que la Zona lo juzgue.</text>
+    </string>
+    <string id="st_pjnews_enemigo_7">
+        <text>Tengo un reporte alegre: %s no jode mas. Lo encontraron en %s, era de los %s. Bien merecido.</text>
+    </string>
+    <string id="st_pjnews_enemigo_8">
+        <text>%s descansa en paz para siempre en %s. Era de los %s, ojala el infierno exista para tipos como el.</text>
     </string>
 </string_table>

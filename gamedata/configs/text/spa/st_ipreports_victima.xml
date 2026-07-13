@@ -1,12 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<string_table>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    REPORTE DEL JUGADOR (cuando el mismo mato a la victima)
+    Formato %s: 1° = nombre victima, 2° = zona, 3° = faccion
+--><string_table>
     <string id="st_pjnews_victima_1">
         <text>Recien limpie a este infeliz. %s paso a mejor vida en %s, de los %s, no tuvo oportunidad contra mi. Una rata menos.</text>
     </string>
     <string id="st_pjnews_victima_2">
-        <text>¿Te pensabas que me ibas a ganar, %s? Mandaste fruta aca en %s. Otro %s que dobla el lomo gracias a mi fusil.</text>
+        <text>?Te pensabas que me ibas a ganar, %s? Mandaste fruta aca en %s. Otro %s que dobla el lomo gracias a mi fusil.</text>
     </string>
     <string id="st_pjnews_victima_3">
         <text>Le clave una bala en la frente a %s aca en %s. Sos historia, %s. La proxima piensen dos veces antes de apuntarme.</text>
+    </string>
+
+    <string id="st_pjnews_victima_4">
+        <text>Acabo de ajusticiar a %s en %s. Iba con los %s, pero ya no va con nadie. Problem solved.</text>
+    </string>
+    <string id="st_pjnews_victima_5">
+        <text>%s intento jugarmela en %s. Era de los %s, ahora es comida de cerdos.</text>
+    </string>
+    <string id="st_pjnews_victima_6">
+        <text>Baje a %s en %s. Los %s tienen un hueco en sus filas gracias a mi. No me busquen que me van a encontrar.</text>
+    </string>
+    <string id="st_pjnews_victima_7">
+        <text>%s penso que podia conmigo en %s. Error. Era de los %s, ahora es de la tierra. Justicia de la Zona.</text>
+    </string>
+    <string id="st_pjnews_victima_8">
+        <text>Reporte de baja: %s neutralizado en %s, de los %s. Se lo busco solito, yo solo cumpli.</text>
     </string>
 </string_table>

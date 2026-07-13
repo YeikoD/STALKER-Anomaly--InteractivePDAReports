@@ -1,10 +1,13 @@
-<?xml version="1.0" encoding="utf-8"?>
-<string_table>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    RESPUESTAS DE NPCs AL REPORTE DEL JUGADOR
+    Formato: {player} = nombre del jugador, {zone} = zona actual, {victim} = nombre de la victima
+--><string_table>
     <string id="st_pjnews_respuesta_victima_1">
-        <text>¿Te haces el vivo, {player}? Te tenemos en la mira. No te va a durar mucho la alegria en {zone}, sabelo.</text>
+        <text>?Te haces el vivo, {player}? Te tenemos en la mira. No te va a durar mucho la alegria en {zone}, sabelo.</text>
     </string>
     <string id="st_pjnews_respuesta_victima_2">
-        <text>¡Callate la boca, basura! {player} era mil veces mejor stalker que vos. Si te cruzo aca en {zone} te lleno de plomo.</text>
+        <text>!Callate la boca, basura! {player} era mil veces mejor stalker que vos. Si te cruzo aca en {zone} te lleno de plomo.</text>
     </string>
     <string id="st_pjnews_respuesta_victima_3">
         <text>Disfruta mientras puedas, {player}. El proximo en quedar tirado vas a ser vos. Juramos venganza por {victim}.</text>
@@ -38,5 +41,69 @@
     </string>
     <string id="st_pjnews_respuesta_neutral_3">
         <text>Duro... un dia estas tomando vodka en la fogata y al otro sos comida de perros. Suerte.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_victima_4">
+        <text>Te voy a estar esperando, {player}. En {zone} o donde sea, te voy a hacer mierda por lo que le hiciste a {victim}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_5">
+        <text>{player}, hijo de puta. Te vamos a cazar como al perro que sos. {zone} se va a convertir en tu tumba.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_6">
+        <text>Te crees muy picante, {player}? {victim} era sangre de mi sangre, te juro que te voy a enterrar al lado en {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_7">
+        <text>No te escondas, {player}. En {zone} todo se sabe, y todos saben que vos liquidaste a {victim}. Te llego la hora.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_8">
+        <text>Mira bien por donde caminas, {player}. {zone} se va a quedar chica para esconderte de lo que te espera por {victim}.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_enemigo_4">
+        <text>Me alegro, la verdad. Ojala que al que le toco el tiro haya sufrido bien.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_5">
+        <text>Se jodio por gil. La Zona no discrimina, al final todos terminamos siendo comida de cerdos.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_6">
+        <text>Uno menos para preocuparse. Bien ahi el que lo bajo, ojala le haya dolido.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_7">
+        <text>Merecido se lo tenia. Ese infeliz le hizo la vida imposible a mas de uno por aca.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_8">
+        <text>Bien hecho. Ojala haya sufrido, ojala haya sabido quien lo mando al otro mundo.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_amistoso_4">
+        <text>La puta madre, {victim} no se merecia esto. Era buena gente, de los pocos que quedaban en {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_5">
+        <text>Me duele el alma, {player}. {victim} y yo compartimos fogata mas de una vez en {zone}. Vamos a extranarlo.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_6">
+        <text>Justo {victim}... justo ahora que las cosas se estaban calmando en {zone}. La Zona nunca da tregua.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_7">
+        <text>No sabes lo que me duele escuchar esto. {victim} me salvo el pellejo una vez. Si necesitas algo para honrarlo, avisa.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_8">
+        <text>Que cagada, hermano. {victim} se fue al cielo de los stalkers. {zone} pierde a un grosito hoy.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_neutral_4">
+        <text>Toma nota. Mejor no acercarse a {zone} por un tiempo, hasta que los perros se olviden del olor a muerte.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_5">
+        <text>Bien ahi por avisar. En {zone} la cosa esta caliente, mejor tener los ojos bien abiertos.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_6">
+        <text>La muerte siempre esta al acecho en la Zona. Gracias por el dato, me lo guardo.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_7">
+        <text>Anotado queda. Si ves algo raro en {zone} avisa de nuevo, total para eso esta la red.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_8">
+        <text>Que le vamos a hacer. {zone} ya tiene un alma menos. Ojala los mutantes no se vuelvan locos con el olor.</text>
     </string>
 </string_table>

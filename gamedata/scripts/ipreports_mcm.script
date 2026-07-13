@@ -1,16 +1,25 @@
+local mcm_keybinds = ui_mcm and ui_mcm.key_hold
+
 function on_mcm_load()
-    return {
+    local options = {
         id = "ipreports",
         sh = true,
         gr = {
-            { id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_menu_ipreports", size = { 512, 50 }, spacing = 20 },
-            { id = "factorEgo", type = "track", val = 2, min = 0, max = 100, step = 5, def = 100 },
-            { id = "respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 40 },
-            { id = "segunda_respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 30 },
-            { id = "tiempo_respuesta_1_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 30 },
-            { id = "tiempo_respuesta_1_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 60 },
-            { id = "tiempo_respuesta_2_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 30 },
-            { id = "tiempo_respuesta_2_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 60 }
+            {id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_menu_ipreports", size = {512, 50}, spacing = 20},
+            {id = "factorEgo", type = "track", val = 2, min = 0, max = 100, step = 5, def = 100},
+            {id = "cd_title", type = "title", text = "ui_mcm_ipreports_cd_title"},
+            {id = "cooldown_toggle", type = "check", val = 1, def = false},
+            {id = "cooldown_time", type = "track", val = 2, min = 10, max = 300, step = 5, def = 60},
+            {id = "prob_title", type = "title", text = "ui_mcm_ipreports_prob_title"},
+            {id = "respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 50},
+            {id = "segunda_respuesta_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 30},
+            {id = "time_title", type = "title", text = "ui_mcm_ipreports_time_title"},
+            {id = "tiempo_respuesta_1_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 30},
+            {id = "tiempo_respuesta_1_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 60},
+            {id = "tiempo_respuesta_2_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 40},
+            {id = "tiempo_respuesta_2_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 80},
+            {id = "yeiko_desc", type = "desc", text = "ui_mcm_ipreports_yeiko_desc"}
         }
     }
+    return options
 end

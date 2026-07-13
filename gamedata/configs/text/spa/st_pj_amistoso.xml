@@ -1,12 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<string_table>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    REPORTE DEL JUGADOR (relacion AMISTOSA)
+    Formato %s: 1° = nombre victima, 2° = zona, 3° = faccion
+--><string_table>
     <string id="st_pjnews_amistoso_1">
-        <text>Puta madre... Encontre el cuerpo de mi compañero %s aca en %s. Era un buen %s, que la Zona lo tenga en su gloria.</text>
+        <text>Puta madre... Encontre el cuerpo de mi companero %s aca en %s. Era un buen %s, que la Zona lo tenga en su gloria.</text>
     </string>
     <string id="st_pjnews_amistoso_2">
         <text>No me la contes... %s cayo aca en %s. Los %s perdimos a uno de los buenos hoy. Que descanses en paz, hermano.</text>
     </string>
     <string id="st_pjnews_amistoso_3">
-        <text>Mala noticia para nosotros... Encontre tirado a %s aca en %s. Era un %s de fierro, se va a extrañar en el campamento.</text>
+        <text>Mala noticia para nosotros... Encontre tirado a %s aca en %s. Era un %s de fierro, se va a extranar en el campamento.</text>
+    </string>
+
+    <string id="st_pjnews_amistoso_4">
+        <text>Acabo de encontrar a %s en %s. No sobrevivio. Era %s de los nuestros, una perdida grande para la hermandad.</text>
+    </string>
+    <string id="st_pjnews_amistoso_5">
+        <text>Hermanos, %s cayo en %s. Un hermano de los %s se nos fue. Que la Zona lo abrace.</text>
+    </string>
+    <string id="st_pjnews_amistoso_6">
+        <text>No puedo creerlo. %s lo encontraron sin vida en %s. Los %s estamos de luto.</text>
+    </string>
+    <string id="st_pjnews_amistoso_7">
+        <text>Mala sangre... %s aparecio muerto en %s. Era de los %s, se va a extranar en las fogatas.</text>
+    </string>
+    <string id="st_pjnews_amistoso_8">
+        <text>%s no esta mas entre nosotros. Cayo en %s. Era de los %s, lo voy a extranar, buena onda el pibe.</text>
     </string>
 </string_table>

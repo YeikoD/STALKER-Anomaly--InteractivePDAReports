@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<string_table>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SEGUNDA RESPUESTA DE NPCs (comentario externo de otra faccion)
+    Formato %s: 1° = nombre victima, 2° = zona, 3° = faccion
+--><string_table>
     <string id="st_pjnews_segresp_amistoso_1">
         <text>Que lastima lo de %s, pobrecito. Se metio en una zona dificil en %s, los %s estan de luto.</text>
     </string>
@@ -7,26 +10,74 @@
         <text>Escuche lo que le paso a %s en %s. No importa la faccion, siempre es una vida menos. Respetos para los %s.</text>
     </string>
     <string id="st_pjnews_segresp_amistoso_3">
-        <text>Pobre tipo, lo vi una vez. Era de los %s, parecia buen pibe. La Zona no perdona a nadie en %s.</text>
+        <text>Pobre %s, lo vi una vez. Cayo en %s, era de los %s, parecia buen pibe.</text>
     </string>
 
     <string id="st_pjnews_segresp_enemigo_1">
-        <text>Ja, me alegro. %s de los %s era un dolor de bolas. Se busco lo que le paso en %s.</text>
+        <text>Ja, me alegro. %s se busco lo que le paso en %s. Era de los %s, un dolor de bolas.</text>
     </string>
     <string id="st_pjnews_segresp_enemigo_2">
-        <text>Uno menos para preocuparse. %s era un desecho de %s, bien ahi donde termino en %s.</text>
+        <text>Uno menos para preocuparse. %s termino en %s. Era un desecho de los %s, bien ahi.</text>
     </string>
     <string id="st_pjnews_segresp_enemigo_3">
-        <text>Los %s perdieron a uno, y a mi no me preocupa. %s no va a joder mas a nadie en %s.</text>
+        <text>%s no va a joder mas a nadie en %s. Los %s perdieron a uno, y a mi no me preocupa.</text>
     </string>
 
     <string id="st_pjnews_segresp_neutral_1">
-        <text>Voy escuchando... %s era de los %s. Nunca cruce palabra, pero en %s la muerte siempre esta al acecho.</text>
+        <text>Voy escuchando... %s cayo en %s, era de los %s. Nunca cruce palabra, pero en la Zona la muerte siempre esta al acecho.</text>
     </string>
     <string id="st_pjnews_segresp_neutral_2">
         <text>Que se le va a hacer. %s cayo en %s. Los %s deben estar rearmandose. La vida sigue.</text>
     </string>
     <string id="st_pjnews_segresp_neutral_3">
-        <text>Me entere de lo de %s. La Zona se cobra otro. Espero que los %s sepan cuidarse en %s.</text>
+        <text>Me entere de lo de %s en %s. Espero que los %s sepan cuidarse.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_amistoso_4">
+        <text>Me da pena lo de %s. Cayo en %s, era de los %s, muchacho joven. Nadie merece morir asi.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_5">
+        <text>Pobre %s. No importa de que faccion sea, cuando uno cae en %s todos somos stalkers. Respeto para los %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_6">
+        <text>%s, una vida menos en %s. Era de los %s, pero al final todos somos hermanos en la Zona.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_7">
+        <text>Que tristeza bo. %s cayo en %s, era de los %s. Mandale condolencias a la banda de mi parte.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_8">
+        <text>Escuche lo de %s. Cayo en %s, era pibe de los %s. La Zona es una hija de puta.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_enemigo_4">
+        <text>Bien merecido. %s sufrio alla en %s. Era de los %s, ojala haya sido doloroso.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_5">
+        <text>Me prestas el fusil para ir a festejar? %s se fue al carajo en %s. Era de los %s, buenas noticias.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_6">
+        <text>No sabes como me alegra esto. %s no jode mas. Cayo en %s, era de los %s. Bien ahi el responsable.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_7">
+        <text>%s muerde el polvo en %s. Era de los %s, se lo busco, la Zona es justiciera.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_8">
+        <text>Ja, no me sorprende. %s cayo en %s como el perro que era. Tenia los dias contados, era de los %s.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_neutral_4">
+        <text>Me entero de lo de %s en %s. Era de los %s, la Zona se cobra otra victima.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_5">
+        <text>%s caido en %s, de los %s. Anotado. No tengo opinion, solo constato el hecho.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_6">
+        <text>La vida sigue. %s ahora esta en un sueno eterno en %s. Era de los %s, ojala haya paz para el.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_7">
+        <text>Tomo nota. %s fallecio en %s, ex miembro de los %s. Que descanse en el mas alla.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_8">
+        <text>Escuche el reporte. %s en %s, de los %s. Todos terminamos igual en esta tierra maldita.</text>
     </string>
 </string_table>

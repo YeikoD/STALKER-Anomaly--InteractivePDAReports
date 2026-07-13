@@ -1,5 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<string_table>
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+    REPORTE DEL JUGADOR (relacion NEUTRAL)
+    Formato %s: 1° = nombre victima, 2° = zona, 3° = faccion
+--><string_table>
     <string id="st_pjnews_neutral_1">
         <text>Reportando un fiambre... Es %s aca en %s, de la faccion %s. El tipo ya paso a mejor vida.</text>
     </string>
@@ -8,5 +11,21 @@
     </string>
     <string id="st_pjnews_neutral_3">
         <text>Pobre tipo... quedo tirado %s aca en %s, de los %s. La Zona no perdona a nadie, anden con cuidado.</text>
+    </string>
+
+    <string id="st_pjnews_neutral_4">
+        <text>Aca encontre un cuerpo. Es %s, esta en %s. Iba con los %s, pero ya no va mas con nadie.</text>
+    </string>
+    <string id="st_pjnews_neutral_5">
+        <text>%s esta muerto en %s. Los %s perdieron a uno. Sin comentarios, solo el dato.</text>
+    </string>
+    <string id="st_pjnews_neutral_6">
+        <text>Consegui un cadaver fresco. El fiambre es %s, cayo en %s, era de los %s. Ahi queda el aviso.</text>
+    </string>
+    <string id="st_pjnews_neutral_7">
+        <text>Les reporto que %s se fue al descanso eterno en %s. Era de los %s, que la tierra le sea leve.</text>
+    </string>
+    <string id="st_pjnews_neutral_8">
+        <text>Alerta de cuerpo: %s en %s, ex miembro de los %s. Saqueen rapido si quieren algo util.</text>
     </string>
 </string_table>

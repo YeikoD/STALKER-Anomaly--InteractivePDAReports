@@ -17,6 +17,7 @@ local modName = "ipreports"
 local cadaveres_reportados = {}
 local muertos_por_el_actor = {}
 local cadaver_pendiente = nil
+local cooldown_proximo_reporte = 0
 
 -- ============================================================================
 -- 1. REGISTRO DE EVENTOS (CALLBACKS OFICIALES)
@@ -35,7 +36,10 @@ total_frases = {
     amistoso = 0,
     neutral = 0,
     enemigo = 0,
-    victima = 0
+    victima = 0,
+    segresp_amistoso = 0,
+    segresp_enemigo = 0,
+    segresp_neutral = 0
 }
 
 function contar_frases_en_xml(prefijo_id)
@@ -123,19 +127,11 @@ function al_entrar_al_mundo()
     total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
     total_frases.enemigo = contar_frases_en_xml("st_pjnews_enemigo")
     total_frases.victima = contar_frases_en_xml("st_pjnews_victima")
+    total_frases.segresp_amistoso = contar_frases_en_xml("st_pjnews_segresp_amistoso")
+    total_frases.segresp_enemigo = contar_frases_en_xml("st_pjnews_segresp_enemigo")
+    total_frases.segresp_neutral = contar_frases_en_xml("st_pjnews_segresp_neutral")
 
-    pj_log("interactive", "DEBUG total_frases: amistoso=%s neutral=%s enemigo=%s victima=%s", tostring(total_frases.amistoso), tostring(total_frases.neutral), tostring(total_frases.enemigo), tostring(total_frases.victima))
-
-    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-    local texto_conexion = game.translate_string("st_pjnews_pda_con")
-
-    if texto_conexion == "st_pjnews_pda_con" then
-        texto_conexion = "PDA: Conexion establecida."
-    end
-
-    local msg = inc_clr .. texto_conexion
-    dynamic_news_helper.send_tip(msg, "Feed", nil, 10, "stalker", "news", "npc")
+    pj_log("interactive", "DEBUG total_frases: amistoso=%s neutral=%s enemigo=%s victima=%s segresp_am=%s segresp_ene=%s segresp_neu=%s", tostring(total_frases.amistoso), tostring(total_frases.neutral), tostring(total_frases.enemigo), tostring(total_frases.victima), tostring(total_frases.segresp_amistoso), tostring(total_frases.segresp_enemigo), tostring(total_frases.segresp_neutral))
 end
 
 -- ============================================================================
@@ -282,7 +278,9 @@ function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombr
     pj_log("respuestas", "Segundo NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
 
     CreateTimeEvent("ipreports_Resp2_Event", "enviar_segunda_respuesta_pda", delay, function()
-        rotacion_npc["seg_" .. cat] = (rotacion_npc["seg_" .. cat] or 0) % 3 + 1
+        local max_segresp = total_frases["segresp_" .. cat] or 0
+        if max_segresp == 0 then max_segresp = 3 end
+        rotacion_npc["seg_" .. cat] = (rotacion_npc["seg_" .. cat] or 0) % max_segresp + 1
         local idx = rotacion_npc["seg_" .. cat]
         local id_str = "st_pjnews_segresp_" .. cat .. "_" .. tostring(idx)
         local plantilla = game.translate_string(id_str)
@@ -327,6 +325,18 @@ function procesar_reporte(datos)
     end
     if math.random() > factorEgo / 100 then
         pj_log("interactive", "DEBUG factorEgo: no se reporta este cadaver (%s%%)", tostring(factorEgo))
+        return
+    end
+
+    -- Cooldown check
+    local cd_toggle = false
+    local cd_time = 60
+    if ui_mcm then
+        cd_toggle = ui_mcm.get("ipreports/cooldown_toggle") or false
+        cd_time = ui_mcm.get("ipreports/cooldown_time") or 60
+    end
+    if cd_toggle and time_global() < cooldown_proximo_reporte then
+        pj_log("interactive", "Cooldown activo, reporte saltado")
         return
     end
 
@@ -398,4 +408,9 @@ function procesar_reporte(datos)
     end
 
     muertos_por_el_actor[datos.id] = nil
+
+    -- Actualizar cooldown tras reporte exitoso
+    if cd_toggle then
+        cooldown_proximo_reporte = time_global() + (cd_time * 1000)
+    end
 end

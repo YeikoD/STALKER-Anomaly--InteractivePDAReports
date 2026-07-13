@@ -1,18 +1,43 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <string_table>
     <string id="ui_mcm_menu_ipreports">
         <text>Interactive PDA Reports</text>
     </string>
 
     <string id="ui_mcm_ipreports_title">
-        <text>Configuración</text>
+        <text>Configuracion</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_cd_title">
+        <text>Cooldown de Reportes</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_cooldown_toggle">
+        <text>Activar Cooldown</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_toggle_desc">
+        <text>Activa un temporizador que bloquea nuevos reportes mientras este activo. Util para evitar spam.</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_time">
+        <text>Tiempo de Cooldown (seg)</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_time_desc">
+        <text>Tiempo en segundos que debe esperar entre reportes.\n60 = 1 minuto, 300 = 5 minutos.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_prob_title">
+        <text>Probabilidades de Respuesta</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_time_title">
+        <text>Tiempos de Respuesta</text>
     </string>
 
     <string id="ui_mcm_ipreports_factorEgo">
         <text>Factor Ego (%)</text>
     </string>
     <string id="ui_mcm_ipreports_factorEgo_desc">
-        <text>Probabilidad de reportar el cuerpo de una víctima.\n100% = Todos los cuerpos, 50% = 1 de cada 2, 0% = Nunca.</text>
+        <text>Probabilidad de reportar el cuerpo de una victima.\n100% = Todos los cuerpos, 50% = 1 de cada 2, 0% = Nunca.</text>
     </string>
 
     <string id="ui_mcm_ipreports_respuesta_probabilidad">
@@ -22,34 +47,38 @@
         <text>Probabilidad de que un NPC de la misma faccion responda al reporte.\n0% = Nunca, 100% = Siempre.</text>
     </string>
     <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad">
-        <text>Probabilidad de Comentario Externo (%)</text>
+        <text>Probabilidad de Respuesta Externa (%)</text>
     </string>
     <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad_desc">
         <text>Probabilidad de que un NPC de otra faccion comente sobre lo ocurrido.\n0% = Nunca, 100% = Siempre.</text>
     </string>
 
     <string id="ui_mcm_ipreports_tiempo_respuesta_1_min">
-        <text>Tiempo Respuesta 1 - Mínimo</text>
+        <text>Tiempo Respuesta - Minimo</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_1_min_desc">
         <text>Tiempo minimo (en decisegundos) antes de que responda el primer NPC.\n10 = 1 seg, 30 = 3 seg, 100 = 10 seg.</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_1_max">
-        <text>Tiempo Respuesta 1 - Máximo</text>
+        <text>Tiempo Respuesta - Maximo</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_1_max_desc">
         <text>Tiempo maximo (en decisegundos) antes de que responda el primer NPC.\n10 = 1 seg, 60 = 6 seg, 100 = 10 seg.</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_2_min">
-        <text>Tiempo Respuesta 2 - Mínimo</text>
+        <text>Tiempo Respuesta Extarna - Minimo</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_2_min_desc">
         <text>Tiempo minimo (en decisegundos) antes de que responda el segundo NPC.\n10 = 1 seg, 40 = 4 seg, 100 = 10 seg.</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_2_max">
-        <text>Tiempo Respuesta 2 - Máximo</text>
+        <text>Tiempo Respuesta Externa - Maximo</text>
     </string>
     <string id="ui_mcm_ipreports_tiempo_respuesta_2_max_desc">
         <text>Tiempo maximo (en decisegundos) antes de que responda el segundo NPC.\n10 = 1 seg, 80 = 8 seg, 100 = 10 seg.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_yeiko_desc">
+        <text>Addon By Yeiko</text>
     </string>
 </string_table>
