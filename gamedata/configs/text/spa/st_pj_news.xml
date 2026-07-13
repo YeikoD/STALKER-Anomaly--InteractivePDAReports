@@ -3,4 +3,7 @@
     <string id="st_pjnews_pda_con">
         <text>PDA: Conexion establecida.</text>
     </string>
+    <string id="st_pjnews_todos">
+        <text>Todos</text>
+    </string>
 </string_table>

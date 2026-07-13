@@ -1,7 +1,7 @@
 -- ============================================================================
 -- CONFIGURACIÓN DEL MOD
 -- ============================================================================
-local segundos_de_espera = 3.0 -- Cuánto tardás vos en mandar tu mensaje al cerrar el inventario
+local segundos_de_espera = 2.0 -- Cuánto tardás vos en mandar tu mensaje al cerrar el inventario
 local modName = "PJNews"
 
 -- ============================================================================
@@ -17,6 +17,9 @@ local total_frases = {
     enemigo = 0,
     victima = 0
 }
+
+local rotacion_player = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
+local rotacion_npc    = { amistoso = 0, neutral = 0, enemigo = 0, victima = 0 }
 
 -- ============================================================================
 -- 1. REGISTRO DE EVENTOS (CALLBACKS OFICIALES)
@@ -51,7 +54,7 @@ function al_entrar_al_mundo()
     end
     
     local msg = inc_clr .. texto_conexion
-    dynamic_news_helper.send_tip(msg, "Orbitario", nil, 10, "stalker", "news", "npc")
+    dynamic_news_helper.send_tip(msg, "Feed", nil, 10, "stalker", "news", "npc")
 end
 
 function contar_frases_en_xml(prefijo_id)
@@ -123,7 +126,8 @@ function obtener_frase_optima(tipo_relacion)
     local max_disponibles = total_frases[tipo_relacion] or 0
     if max_disponibles == 0 then return nil, 0 end
     
-    local indice_elegido = math.random(1, max_disponibles)
+    rotacion_player[tipo_relacion] = (rotacion_player[tipo_relacion] % max_disponibles) + 1
+    local indice_elegido = rotacion_player[tipo_relacion]
     local id_final = "st_pjnews_" .. tipo_relacion .. "_" .. tostring(indice_elegido)
     
     return game.translate_string(id_final), indice_elegido
@@ -227,8 +231,8 @@ function enviar_notificacion_pda(datos)
     end
 
     -- 1. Se envia TU reporte en la PDA
-    local msg = strformat("%s%s: %s%s", inc_clr, nombre_player, def_clr, texto_formateado)
-    dynamic_news_helper.send_tip(msg, "Orbitario", nil, 10, icono_muerto, "danger", "npc")
+    local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto_formateado)
+    dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. game.translate_string(faccion_player), nil, 10, icono_muerto, "danger", "npc")
     
     -- 2. Buscamos quien te va a responder
     local faccion_que_responde = faccion_muerto
@@ -239,14 +243,22 @@ function enviar_notificacion_pda(datos)
     local npc_respondedor = buscar_respondedor(faccion_que_responde)
 
     if npc_respondedor then
+        local prob = 40
+        if ui_mcm then
+            prob = ui_mcm.get("pj_news/respuesta_probabilidad") or 40
+        end
+        if math.random() <= prob / 100 then
         -- CALCULAMOS EL TIEMPO ALEATORIO: math.random(30, 50) devuelve un entero de 30 a 50.
         -- Al dividirlo entre 10, nos da un float espectacular entre 3.0 y 5.0 segundos.
-        local delay_aleatorio = math.random(30, 50) / 10
+        local delay_aleatorio = math.random(30, 60) / 10
         printf("--- YeikoD - ".. modName ..": NPC '%s' respondera en %s segundos...", npc_respondedor.nombre, tostring(delay_aleatorio))
 
         -- 3. Creamos el evento diferido con el tiempo al azar
         CreateTimeEvent("PJNews_Respuesta_Event", "enviar_respuesta_pda", delay_aleatorio, function()
-            local id_respuesta = "st_pjnews_respuesta_" .. categoria_usada .. "_" .. tostring(indice_elegido)
+            local cat = categoria_usada
+            rotacion_npc[cat] = (rotacion_npc[cat] % (total_frases[cat] or 3)) + 1
+            local resp_indice = rotacion_npc[cat]
+            local id_respuesta = "st_pjnews_respuesta_" .. cat .. "_" .. tostring(resp_indice)
             local plantilla_respuesta = game.translate_string(id_respuesta)
             
             if plantilla_respuesta == id_respuesta then return true end
@@ -263,14 +275,14 @@ function enviar_notificacion_pda(datos)
             end
 
             -- Estilo visual del NPC respondiendo
-            local color_npc = strformat("%c[%s,%s,%s,%s]", 255, 230, 180, 50)
-            local msg_resp = strformat("%s%s (%s): %s%s", color_npc, npc_respondedor.nombre, game.translate_string(npc_respondedor.faccion), def_clr, texto_respuesta)
+            local msg_resp = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto_respuesta)
 
-            dynamic_news_helper.send_tip(msg_resp, "Orbitario", nil, 10, npc_respondedor.icono, "news", "npc")
+            dynamic_news_helper.send_tip(msg_resp, npc_respondedor.nombre .. ", " .. game.translate_string(npc_respondedor.faccion), nil, 10, npc_respondedor.icono, "news", "npc")
             printf("--- YeikoD - Respuesta enviada exitosamente por: %s", npc_respondedor.nombre)
             
             return true
         end)
+        end
     end
     
     muertos_por_el_actor[datos.id] = nil

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="ui_mcm_menu_pj_news">
+        <text>PJ News Interactive</text>
+    </string>
+
+    <string id="ui_mcm_pj_news_title">
+        <text>Configuración de PJ News</text>
+    </string>
+
+    <string id="ui_mcm_pj_news_respuesta_probabilidad">
+        <text>Probabilidad de Respuesta (%)</text>
+    </string>
+    <string id="ui_mcm_pj_news_respuesta_probabilidad_desc">
+        <text>Probabilidad de que un NPC responda al reporte.\n0% = Nunca responden, 100% = Siempre responden.</text>
+    </string>
+</string_table>
