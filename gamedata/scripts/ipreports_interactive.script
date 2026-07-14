@@ -25,9 +25,19 @@ local reward_corpse_counter = 0
 -- ============================================================================
 function on_game_start()
     RegisterScriptCallback("actor_on_first_update", al_entrar_al_mundo)
+    RegisterScriptCallback("save_state", guardar_estado)
+    RegisterScriptCallback("load_state", cargar_estado)
     RegisterScriptCallback("npc_on_death_callback", al_morir_npc)
     RegisterScriptCallback("npc_on_use", al_usar_npc)
     RegisterScriptCallback("GUI_on_hide", al_cerrar_inventario)
+end
+
+function guardar_estado(mdata)
+    mdata.ipreports_reward_counter = reward_corpse_counter
+end
+
+function cargar_estado(mdata)
+    reward_corpse_counter = mdata.ipreports_reward_counter or 0
 end
 
 -- ============================================================================
@@ -136,7 +146,6 @@ function al_entrar_al_mundo()
     cadaveres_reportados = {}
     muertos_por_el_actor = {}
     cadaver_pendiente = nil
-    reward_corpse_counter = 0
 
     total_frases.amistoso = contar_frases_en_xml("st_pjnews_amistoso")
     total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
