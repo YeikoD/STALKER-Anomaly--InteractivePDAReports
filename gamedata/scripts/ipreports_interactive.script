@@ -110,9 +110,6 @@ function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_
 
     pj_log("reportes", "DEBUG relacion=%s lo_mate_yo=%s faccion_player=%s faccion_muerto=%s categoria=%s", tostring(relacion_puntos), tostring(lo_mate_yo), faccion_player, faccion_muerto, categoria_usada)
 
-    local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-    local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-
     local plantilla, _ = obtener_frase_optima(categoria_usada)
 
     local texto_formateado = ""
@@ -132,7 +129,7 @@ function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_
         texto_formateado = "Reportando un cuerpo en " .. zona_actual .. ". Se trata de " .. nombre_muerto .. "."
     end
 
-    local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto_formateado)
+    local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, texto_formateado)
     dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. game.translate_string(faccion_player), nil, 10, db.actor:character_icon(), "danger", "npc")
 
     return categoria_usada
@@ -272,10 +269,7 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
 
         local texto = sustituir_plantilla_primera(plantilla, nombre_player, zona_actual, nombre_muerto)
 
-        local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-        local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-        local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto)
-
+        local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, texto)
         dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. game.translate_string(npc.faccion), nil, 10, npc.icono, "news", "npc")
         pj_log("respuestas", "Respuesta enviada por: %s, texto: %s", npc.nombre, texto)
 
@@ -323,10 +317,7 @@ function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombr
             texto = "Algo escuche sobre lo que paso en " .. zona_actual .. "."
         end
 
-        local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-        local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-        local msg = strformat("%s%s: %s%s", inc_clr, game.translate_string("st_pjnews_todos"), def_clr, texto)
-
+        local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, texto)
         dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. game.translate_string(npc.faccion), nil, 10, npc.icono, "news", "npc")
         pj_log("respuestas", "Segunda respuesta enviada por: %s", npc.nombre)
         return true
@@ -405,11 +396,8 @@ function procesar_reporte(datos)
                 local msg_text = reward_msgs[math.random(1, #reward_msgs)]
                 msg_text = msg_text:gsub("{player}", reward_data.nombre_player):gsub("{money}", tostring(reward_data.total_money)):gsub("{count}", tostring(reward_data.count))
 
-                local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-                local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-                local privado_str = game.translate_string("st_pjnews_privado")
                 local sender_str = game.translate_string("st_pjnews_reward_sender") .. ", " .. game.translate_string("st_pjnews_reward_sender_faction")
-                local msg = strformat("%s%s: %s%s", inc_clr, privado_str, def_clr, msg_text)
+                local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, msg_text)
                 dynamic_news_helper.send_tip(msg, sender_str, nil, 10, "ui_inGame2_sid", "news", "npc")
 
                 pj_log("interactive", "Recompensa de %d rublos por %d cuerpo(s) otorgada", reward_data.total_money, reward_data.count)
