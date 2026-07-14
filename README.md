@@ -107,3 +107,11 @@ gamedata/
         ├── st_pj_enemigo.xml
         └── st_pj_respuestas.xml
 ```
+## 💬 Feedback & Suggestions (Let's Connect!)
+This mod is actively maintained, and I’m always looking for ways to make the Zone even more immersive. Got an idea for a new feature, some spicy dialogue, or want to report a bug? I’m all ears! 
+
+Feel free to reach out, share your suggestions, or follow my dev journey:
+* **X (Twitter):** [@_yeikotv](https://x.com/_yeikotv) — For quick updates, modding news, and random Zone thoughts.
+* **Instagram:** [@_yeikodev](https://www.instagram.com/_yeikodev/) — Where I share behind-the-scenes of my game dev projects.
+
+Drop a follow, send a DM, and let's make this mod even better together. Good hunting, stalker! 🍂

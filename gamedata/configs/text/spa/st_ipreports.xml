@@ -32,4 +32,75 @@
     <string id="st_pjnews_reward_5">
         <text>Recibi tus {count} reportes, {player}. Te transferi {money} rublos. No te confies, la Zona siempre cobra su parte.</text>
     </string>
+
+    <string id="st_pjnews_n">
+        <text>al norte de</text>
+    </string>
+    <string id="st_pjnews_ne">
+        <text>al noreste de</text>
+    </string>
+    <string id="st_pjnews_e">
+        <text>al este de</text>
+    </string>
+    <string id="st_pjnews_se">
+        <text>al sureste de</text>
+    </string>
+    <string id="st_pjnews_s">
+        <text>al sur de</text>
+    </string>
+    <string id="st_pjnews_sw">
+        <text>al suroeste de</text>
+    </string>
+    <string id="st_pjnews_w">
+        <text>al oeste de</text>
+    </string>
+    <string id="st_pjnews_nw">
+        <text>al noroeste de</text>
+    </string>
+
+    <string id="st_pjnews_faction_stalker">
+        <text>Stalkers Libres</text>
+    </string>
+    <string id="st_pjnews_faction_army">
+        <text>Militares</text>
+    </string>
+    <string id="st_pjnews_faction_bandit">
+        <text>Bandido</text>
+    </string>
+    <string id="st_pjnews_faction_freedom">
+        <text>Libertad</text>
+    </string>
+    <string id="st_pjnews_faction_dolg">
+        <text>Deber</text>
+    </string>
+    <string id="st_pjnews_faction_csky">
+        <text>Cielo Despejado</text>
+    </string>
+    <string id="st_pjnews_faction_ecolog">
+        <text>Cientificos</text>
+    </string>
+    <string id="st_pjnews_faction_monolith">
+        <text>Monolito</text>
+    </string>
+    <string id="st_pjnews_faction_killer">
+        <text>Mercenario</text>
+    </string>
+    <string id="st_pjnews_faction_monster">
+        <text>Mutantes</text>
+    </string>
+    <string id="st_pjnews_faction_zombied">
+        <text>Zombies</text>
+    </string>
+    <string id="st_pjnews_faction_greh">
+        <text>Pecado</text>
+    </string>
+    <string id="st_pjnews_faction_isg">
+        <text>UNISG</text>
+    </string>
+    <string id="st_pjnews_faction_renegade">
+        <text>Renegado</text>
+    </string>
+    <string id="st_pjnews_faction_actor">
+        <text>Solitarios</text>
+    </string>
 </string_table>

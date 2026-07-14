@@ -21,6 +21,24 @@ local cooldown_proximo_reporte = 0
 local reward_corpse_counter = 0
 
 -- ============================================================================
+-- HELPERS: Traduccion segura de facciones
+-- ============================================================================
+function faccion_para_traduccion(comunidad)
+    local s = tostring(comunidad)
+    if s:sub(1, 6) == "actor_" then
+        s = s:sub(7)
+    end
+    return s
+end
+
+function traducir_faccion(comunidad)
+    local key = "st_pjnews_faction_" .. comunidad
+    local trad = game.translate_string(key)
+    if trad == key then return comunidad end
+    return trad
+end
+
+-- ============================================================================
 -- 1. REGISTRO DE EVENTOS (CALLBACKS OFICIALES)
 -- ============================================================================
 function on_game_start()
@@ -41,13 +59,78 @@ function cargar_estado(mdata)
 end
 
 -- ============================================================================
--- 2. CONTEO DE FRASES EN XML
+-- 2. UBICACIÓN PRECISA CON SMART TERRAIN
+-- ============================================================================
+
+local function calcular_direccion(dx, dz)
+    local angle = math.atan2(dz, dx) * 180 / math.pi
+    angle = (angle + 360) % 360
+    angle = (angle + 90) % 360
+    if angle < 22.5 or angle >= 337.5 then return "st_pjnews_n" end
+    if angle < 67.5 then return "st_pjnews_ne" end
+    if angle < 112.5 then return "st_pjnews_e" end
+    if angle < 157.5 then return "st_pjnews_se" end
+    if angle < 202.5 then return "st_pjnews_s" end
+    if angle < 247.5 then return "st_pjnews_sw" end
+    if angle < 292.5 then return "st_pjnews_w" end
+    return "st_pjnews_nw"
+end
+
+function obtener_ubicacion_precisa(npc_id, npc_pos)
+    if not npc_id then return nil end
+    local se_npc = alife_object and alife_object(npc_id)
+    if not se_npc or not se_npc.position then return nil end
+    if not SIMBOARD or not SIMBOARD.smarts_by_names then return nil end
+
+    local best_dist = 999999
+    local best_name = nil
+    local has_level_check = simulation_objects and simulation_objects.is_on_the_same_level
+
+    for sname, smart in pairs(SIMBOARD.smarts_by_names) do
+        if smart and smart.position then
+            if (not has_level_check) or simulation_objects.is_on_the_same_level(smart, se_npc) then
+                local dist = se_npc.position:distance_to(smart.position)
+                if dist < best_dist then
+                    best_dist = dist
+                    best_name = sname
+                end
+            end
+        end
+    end
+
+    if not best_name then return nil end
+
+    local key = "st_" .. best_name .. "_name"
+    local translated = game.translate_string(key)
+    if translated == key then return nil end
+
+    local short = translated:match("%. (.+)") or translated
+    if not npc_pos then return short end
+
+    local smart_entry = SIMBOARD.smarts_by_names[best_name]
+    if not smart_entry or not smart_entry.position then return short end
+
+    local sp = smart_entry.position
+    local dx = npc_pos.x - sp.x
+    local dz = npc_pos.z - sp.z
+    if math.abs(dx) < 10 and math.abs(dz) < 10 then return short end
+
+    local dir_key = calcular_direccion(dx, dz)
+    local dir_texto = game.translate_string(dir_key)
+    if dir_texto == dir_key then dir_texto = "" end
+    if dir_texto ~= "" then dir_texto = dir_texto .. " " end
+    return strformat("%s%s", dir_texto, short)
+end
+
+-- ============================================================================
+-- 3. CONTEO DE FRASES EN XML
 -- ============================================================================
 total_frases = {
     amistoso = 0,
     neutral = 0,
     enemigo = 0,
     victima = 0,
+    enemigo_defiende = 0,
     segresp_amistoso = 0,
     segresp_enemigo = 0,
     segresp_neutral = 0
@@ -113,9 +196,10 @@ function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_
     local plantilla, _ = obtener_frase_optima(categoria_usada)
 
     local texto_formateado = ""
+    local faccion_traducida = traducir_faccion(faccion_muerto)
     if plantilla then
         local status, res = pcall(function()
-            return string.format(plantilla, nombre_muerto, zona_actual, faccion_muerto)
+            return string.format(plantilla, nombre_muerto, zona_actual, faccion_traducida)
         end)
         if status then
             texto_formateado = res
@@ -130,13 +214,13 @@ function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_
     end
 
     local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, texto_formateado)
-    dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. game.translate_string(faccion_player), nil, 10, db.actor:character_icon(), "danger", "npc")
+    dynamic_news_helper.send_tip(msg, nombre_player .. ", " .. traducir_faccion(faccion_para_traduccion(faccion_player)), nil, 10, db.actor:character_icon(), "danger", "npc")
 
     return categoria_usada
 end
 
 -- ============================================================================
--- 3. INICIO Y ESCANEO DE XMLs
+-- 4. INICIO Y ESCANEO DE XMLs
 -- ============================================================================
 function al_entrar_al_mundo()
     pj_log("interactive", "Mod iniciado correctamente.")
@@ -148,15 +232,16 @@ function al_entrar_al_mundo()
     total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
     total_frases.enemigo = contar_frases_en_xml("st_pjnews_enemigo")
     total_frases.victima = contar_frases_en_xml("st_pjnews_victima")
+    total_frases.enemigo_defiende = contar_frases_en_xml("st_pjnews_respuesta_enemigo_defiende")
     total_frases.segresp_amistoso = contar_frases_en_xml("st_pjnews_segresp_amistoso")
     total_frases.segresp_enemigo = contar_frases_en_xml("st_pjnews_segresp_enemigo")
     total_frases.segresp_neutral = contar_frases_en_xml("st_pjnews_segresp_neutral")
 
-    pj_log("interactive", "DEBUG total_frases: amistoso=%s neutral=%s enemigo=%s victima=%s segresp_am=%s segresp_ene=%s segresp_neu=%s", tostring(total_frases.amistoso), tostring(total_frases.neutral), tostring(total_frases.enemigo), tostring(total_frases.victima), tostring(total_frases.segresp_amistoso), tostring(total_frases.segresp_enemigo), tostring(total_frases.segresp_neutral))
+    pj_log("interactive", "DEBUG total_frases: amistoso=%s neutral=%s enemigo=%s victima=%s enemigo_defiende=%s segresp_am=%s segresp_ene=%s segresp_neu=%s", tostring(total_frases.amistoso), tostring(total_frases.neutral), tostring(total_frases.enemigo), tostring(total_frases.victima), tostring(total_frases.enemigo_defiende), tostring(total_frases.segresp_amistoso), tostring(total_frases.segresp_enemigo), tostring(total_frases.segresp_neutral))
 end
 
 -- ============================================================================
--- 3. DETECTAR QUIÉN CAUSÓ LA MUERTE
+-- 5. DETECTAR QUIÉN CAUSÓ LA MUERTE
 -- ============================================================================
 function al_morir_npc(victim, killer)
     if not (victim and killer) then return end
@@ -166,7 +251,7 @@ function al_morir_npc(victim, killer)
 end
 
 -- ============================================================================
--- 4. DETECTAR EL USO DEL NPC Y CIERRE DE INVENTARIO
+-- 6. DETECTAR EL USO DEL NPC Y CIERRE DE INVENTARIO
 -- ============================================================================
 function al_usar_npc(npc, actor)
     if not (npc) then return end
@@ -175,12 +260,16 @@ function al_usar_npc(npc, actor)
         if cadaveres_reportados[id_muerto] then return end
         cadaveres_reportados[id_muerto] = true
 
+        local pos = npc:position()
         cadaver_pendiente = {
             id = id_muerto,
             nombre = npc:character_name(),
             faccion = npc:character_community(),
             icono = npc:character_icon(),
-            asesinado_por_actor = muertos_por_el_actor[id_muerto] or false
+            asesinado_por_actor = muertos_por_el_actor[id_muerto] or false,
+            pos_x = pos.x,
+            pos_y = pos.y,
+            pos_z = pos.z
         }
     end
 end
@@ -192,7 +281,10 @@ function al_cerrar_inventario(gui)
             nombre = cadaver_pendiente.nombre,
             faccion = cadaver_pendiente.faccion,
             icono = cadaver_pendiente.icono,
-            asesinado_por_actor = cadaver_pendiente.asesinado_por_actor
+            asesinado_por_actor = cadaver_pendiente.asesinado_por_actor,
+            pos_x = cadaver_pendiente.pos_x,
+            pos_y = cadaver_pendiente.pos_y,
+            pos_z = cadaver_pendiente.pos_z
         }
         cadaver_pendiente = nil
 
@@ -254,6 +346,16 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
 
     CreateTimeEvent("ipreports_Resp1_Event", "enviar_respuesta_pda", delay, function()
         local cat = categoria_usada
+        -- Si el respondedor es de la misma faccion que el muerto
+        if npc.faccion == faccion_muerto then
+            -- Si el muerto era enemigo del jugador, usa enemigo_defiende
+            if categoria_usada == "enemigo" then
+                cat = "enemigo_defiende"
+            else
+                -- Si no era enemigo, usa amistoso (caso original correcto)
+                cat = "amistoso"
+            end
+        end
         local max_frases = total_frases[cat]
         if not max_frases or max_frases == 0 then max_frases = 3 end
         local idx = idx_random_no_repeat("npc_" .. cat, max_frases)
@@ -270,7 +372,7 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
         local texto = sustituir_plantilla_primera(plantilla, nombre_player, zona_actual, nombre_muerto)
 
         local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, texto)
-        dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. game.translate_string(npc.faccion), nil, 10, npc.icono, "news", "npc")
+        dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. traducir_faccion(npc.faccion), nil, 10, npc.icono, "news", "npc")
         pj_log("respuestas", "Respuesta enviada por: %s, texto: %s", npc.nombre, texto)
 
         -- Encadenar segunda respuesta si existe r2_data
@@ -307,8 +409,9 @@ function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombr
         end
 
         local texto = ""
+        local faccion_traducida = traducir_faccion(faccion_muerto)
         local ok, res = pcall(function()
-            return string.format(plantilla, nombre_muerto, zona_actual, faccion_muerto)
+            return string.format(plantilla, nombre_muerto, zona_actual, faccion_traducida)
         end)
         if ok then
             texto = res
@@ -318,14 +421,14 @@ function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombr
         end
 
         local msg = strformat("%c[%s,%s,%s,%s]%s", 255, 255, 255, 255, texto)
-        dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. game.translate_string(npc.faccion), nil, 10, npc.icono, "news", "npc")
+        dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. traducir_faccion(npc.faccion), nil, 10, npc.icono, "news", "npc")
         pj_log("respuestas", "Segunda respuesta enviada por: %s", npc.nombre)
         return true
     end)
 end
 
 -- ============================================================================
--- 5. ORQUESTACIÓN: REPORTE + RESPUESTAS
+-- 7. ORQUESTACIÓN: REPORTE + RESPUESTAS
 -- ============================================================================
 function procesar_reporte(datos)
     if not datos then return end
@@ -358,7 +461,9 @@ function procesar_reporte(datos)
 
     local nombre_player = db.actor:character_name()
     local faccion_player = db.actor:character_community()
-    local zona_actual = game.translate_string(level.name())
+    local npc_pos = datos.pos_x and {x = datos.pos_x, y = datos.pos_y, z = datos.pos_z} or nil
+    local smart_loc = obtener_ubicacion_precisa(datos.id, npc_pos)
+    local zona_actual = smart_loc and (game.translate_string(level.name()) .. " - " .. smart_loc) or game.translate_string(level.name())
 
     -- 1. Reporte del jugador en la PDA
     local categoria_usada = generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)

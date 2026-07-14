@@ -106,4 +106,29 @@
     <string id="st_pjnews_respuesta_neutral_8">
         <text>Que le vamos a hacer. {zone} ya tiene un alma menos. Ojala los mutantes no se vuelvan locos con el olor.</text>
     </string>
+
+    <string id="st_pjnews_respuesta_enemigo_defiende_1">
+        <text>Lo anotaremos, pero no te atrevas a meterte con sus cosas. {victim} era de los nuestros.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_2">
+        <text>Gracias por el dato, {player}, pero no creas que esto nos hace amigos. {victim} tenia cuentas pendientes.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_3">
+        <text>Te estamos vigilando. {victim} no se merecia ese final, y vamos a enterarnos de quien fue.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_4">
+        <text>Una pena lo de {victim}. Pero no te confies, {player}, esto no nos acerca nada.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_5">
+        <text>Anotado. Pero si te cruzas por {zone} buscando problemas, vas a encontrarlos.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_6">
+        <text>{victim} era sangre nuestra. Su muerte no quedara impune, te lo aseguro.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_7">
+        <text>Interesante reporte, {player}. Pero mantente lejos de lo que era de {victim}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_defiende_8">
+        <text>Perdimos a uno bueno en {zone}. No te hagas ilusiones, esto no cambia nada entre nosotros.</text>
+    </string>
 </string_table>
