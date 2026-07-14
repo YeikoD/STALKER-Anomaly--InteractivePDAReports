@@ -221,6 +221,17 @@ function generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_
     return categoria_usada
 end
 
+function obtener_categoria_entre_facciones(faccion_a, faccion_b)
+    local relacion_puntos = relation_registry.community_relation(faccion_a, faccion_b)
+    if relacion_puntos >= 400 then
+        return "amistoso"
+    elseif relacion_puntos <= -400 then
+        return "enemigo"
+    else
+        return "neutral"
+    end
+end
+
 -- ============================================================================
 -- 4. INICIO Y ESCANEO DE XMLs
 -- ============================================================================
@@ -386,13 +397,11 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
 end
 
 function programar_segunda_respuesta(npc, categoria_usada, faccion_muerto, nombre_muerto, zona_actual, nombre_player, delay_min, delay_max)
-    local cat = categoria_usada
-    if cat == "victima" then
-        cat = "enemigo"
-    end
+    -- Calcular categoría basada en la relación entre el NPC respondedor y el muerto
+    local cat = obtener_categoria_entre_facciones(npc.faccion, faccion_muerto)
 
     local delay = math.random(delay_min, delay_max) / 10
-    pj_log("respuestas", "Segundo NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
+    pj_log("respuestas", "Segundo NPC '%s' (faccion=%s) respondera en %s segundos con categoria=%s", npc.nombre, npc.faccion, tostring(delay), cat)
 
     CreateTimeEvent("ipreports_Resp2_Event", "enviar_segunda_respuesta_pda", delay, function()
         local max_segresp = total_frases["segresp_" .. cat] or 0
@@ -463,7 +472,7 @@ function procesar_reporte(datos)
     local faccion_player = db.actor:character_community()
     local npc_pos = datos.pos_x and {x = datos.pos_x, y = datos.pos_y, z = datos.pos_z} or nil
     local smart_loc = obtener_ubicacion_precisa(datos.id, npc_pos)
-    local zona_actual = smart_loc and (game.translate_string(level.name()) .. " , " .. smart_loc) or game.translate_string(level.name())
+    local zona_actual = smart_loc and (game.translate_string(level.name()) .. ", " .. smart_loc) or game.translate_string(level.name())
 
     -- 1. Reporte del jugador en la PDA
     local categoria_usada = generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)
@@ -548,8 +557,10 @@ function procesar_reporte(datos)
     local r2 = buscar_respondedor_distinta_faccion(faccion_que_responde)
 
     -- 5. Decidir si cada respuesta pasa el random
+    pj_log("interactive", "DEBUG probabilidades: prob_primera=%s prob_segunda=%s r1=%s r2=%s", tostring(prob_primera), tostring(prob_segunda), tostring(r1 ~= nil), tostring(r2 ~= nil))
     local r1_pasa = r1 and math.random() <= prob_primera / 100
     local r2_pasa = r2 and math.random() <= prob_segunda / 100
+    pj_log("interactive", "DEBUG random results: r1_pasa=%s r2_pasa=%s", tostring(r1_pasa), tostring(r2_pasa))
 
     -- 6. Primera respuesta (misma facción). Si existe, encadena la segunda
     if r1_pasa then
