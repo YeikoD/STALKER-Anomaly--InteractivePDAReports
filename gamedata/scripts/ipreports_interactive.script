@@ -32,8 +32,10 @@ function faccion_para_traduccion(comunidad)
 end
 
 function traducir_faccion(comunidad)
+    local trad = game.translate_string(comunidad)
+    if trad ~= comunidad then return trad end
     local key = "st_pjnews_faction_" .. comunidad
-    local trad = game.translate_string(key)
+    trad = game.translate_string(key)
     if trad == key then return comunidad end
     return trad
 end
@@ -348,13 +350,11 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
         local cat = categoria_usada
         -- Si el respondedor es de la misma faccion que el muerto
         if npc.faccion == faccion_muerto then
-            -- Si el muerto era enemigo del jugador, usa enemigo_defiende
+            -- Si el muerto era enemigo del jugador (no lo mate yo), usa enemigo_defiende
             if categoria_usada == "enemigo" then
                 cat = "enemigo_defiende"
-            else
-                -- Si no era enemigo, usa amistoso (caso original correcto)
-                cat = "amistoso"
             end
+            -- Para victim/amistoso/neutral, mantener la categoria original
         end
         local max_frases = total_frases[cat]
         if not max_frases or max_frases == 0 then max_frases = 3 end
@@ -463,7 +463,7 @@ function procesar_reporte(datos)
     local faccion_player = db.actor:character_community()
     local npc_pos = datos.pos_x and {x = datos.pos_x, y = datos.pos_y, z = datos.pos_z} or nil
     local smart_loc = obtener_ubicacion_precisa(datos.id, npc_pos)
-    local zona_actual = smart_loc and (game.translate_string(level.name()) .. " - " .. smart_loc) or game.translate_string(level.name())
+    local zona_actual = smart_loc and (game.translate_string(level.name()) .. " , " .. smart_loc) or game.translate_string(level.name())
 
     -- 1. Reporte del jugador en la PDA
     local categoria_usada = generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)
