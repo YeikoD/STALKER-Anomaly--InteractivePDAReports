@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="ui_mcm_menu_ipreports">
+        <text>Interactive PDA Reports</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_title">
+        <text>Settings</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_cd_title">
+        <text>Report Cooldown</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_cooldown_toggle">
+        <text>Enable Cooldown</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_toggle_desc">
+        <text>Enables a timer that blocks new reports while active. Useful to prevent spam.</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_time">
+        <text>Cooldown Duration (sec)</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_time_desc">
+        <text>Time in seconds to wait between reports.\n60 = 1 minute, 300 = 5 minutes.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_title">
+        <text>Reward</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_toggle">
+        <text>Give Money per Report</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_toggle_desc">
+        <text>Gives the player money each time a successful report is made.</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_amount">
+        <text>Reward Amount</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_amount_desc">
+        <text>Amount of rubles received per report.\n10 = Minimum, 50 = Maximum.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_interval">
+        <text>Bodies per Payout</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_interval_desc">
+        <text>Number of reported bodies needed to receive payment.\n1 = every report, 5 = every 5 reports.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_exclude_kills">
+        <text>Exclude Bodies You Killed</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_exclude_kills_desc">
+        <text>If enabled, bodies you killed personally do NOT count toward the reward.\nDisabled by default (all bodies count).</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_prob_title">
+        <text>Response Probabilities</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_time_title">
+        <text>Response Timing</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_factorEgo">
+        <text>Ego Factor (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_factorEgo_desc">
+        <text>Chance of reporting a victim's body.\n100% = All bodies, 50% = 1 in 2, 0% = Never.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_respuesta_probabilidad">
+        <text>Response Probability (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_respuesta_probabilidad_desc">
+        <text>Chance that an NPC from the same faction responds to the report.\n0% = Never, 100% = Always.</text>
+    </string>
+    <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad">
+        <text>External Response Probability (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad_desc">
+        <text>Chance that an NPC from a different faction comments on the event.\n0% = Never, 100% = Always.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_min">
+        <text>Response Time - Minimum</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_min_desc">
+        <text>Minimum time (in deciseconds) before the first NPC responds.\n10 = 1 sec, 30 = 3 sec, 100 = 10 sec.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_max">
+        <text>Response Time - Maximum</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_max_desc">
+        <text>Maximum time (in deciseconds) before the first NPC responds.\n10 = 1 sec, 60 = 6 sec, 100 = 10 sec.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_min">
+        <text>External Response Time - Minimum</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_min_desc">
+        <text>Minimum time (in deciseconds) before the second NPC responds.\n10 = 1 sec, 40 = 4 sec, 100 = 10 sec.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_max">
+        <text>External Response Time - Maximum</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_max_desc">
+        <text>Maximum time (in deciseconds) before the second NPC responds.\n10 = 1 sec, 80 = 8 sec, 100 = 10 sec.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_yeiko_desc">
+        <text>Addon By Yeiko</text>
+    </string>
+</string_table>

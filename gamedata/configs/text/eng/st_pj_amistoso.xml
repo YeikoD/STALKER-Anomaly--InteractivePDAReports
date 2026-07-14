@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (FRIENDLY relation)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_amistoso_1">
+        <text>Damn... Found my brother %s out here in %s. He was a good %s, may the Zone keep him in her glory.</text>
+    </string>
+    <string id="st_pjnews_amistoso_2">
+        <text>No way... %s fell here in %s. We %s lost one of the good ones today. Rest easy, brother.</text>
+    </string>
+    <string id="st_pjnews_amistoso_3">
+        <text>Bad news for us... Found %s dead in %s. He was a solid %s, gonna be missed around the campfire.</text>
+    </string>
+
+    <string id="st_pjnews_amistoso_4">
+        <text>Just found %s in %s. Didn't make it. He was %s, one of ours. Big loss for the brotherhood.</text>
+    </string>
+    <string id="st_pjnews_amistoso_5">
+        <text>Brothers, %s fell in %s. A brother of the %s left us. May the Zone embrace him.</text>
+    </string>
+    <string id="st_pjnews_amistoso_6">
+        <text>Can't believe it. %s was found dead in %s. We %s are in mourning.</text>
+    </string>
+    <string id="st_pjnews_amistoso_7">
+        <text>Bad blood... %s turned up dead in %s. He was with the %s, gonna miss him at the campfires.</text>
+    </string>
+    <string id="st_pjnews_amistoso_8">
+        <text>%s is no longer with us. Fell in %s. He was %s through and through, I'll miss him, good kid.</text>
+    </string>
+    <string id="st_pjnews_amistoso_9">
+        <text>The Zone claimed another. Found %s in %s, he was %s, one of our own. Rest in peace.</text>
+    </string>
+    <string id="st_pjnews_amistoso_10">
+        <text>Brothers, bad news. %s fell in %s, he was with the %s. The brotherhood grows smaller today.</text>
+    </string>
+    <string id="st_pjnews_amistoso_11">
+        <text>I can't believe it, %s dead in %s. He was a good %s, the real kind. Gonna be missed.</text>
+    </string>
+</string_table>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SECOND NPC RESPONSE (external comment from a different faction)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_segresp_amistoso_1">
+        <text>Shame about %s, poor guy. Walked into a bad spot in %s, the %s are in mourning.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_2">
+        <text>Heard what happened to %s in %s. Doesn't matter the faction, it's still a life lost. My respects to the %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_3">
+        <text>Poor %s, saw him once. Fell in %s, he was with the %s, seemed like a decent kid.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_enemigo_1">
+        <text>Ha, glad to hear it. %s had it coming in %s. He was with the %s, a real pain in the ass.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_2">
+        <text>One less to worry about. %s ended up in %s. He was scum from the %s, good riddance.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_3">
+        <text>%s won't bother anyone else in %s. The %s lost one, and I couldn't care less.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_neutral_1">
+        <text>I'm listening... %s fell in %s, was with the %s. Never spoke to him, but in the Zone death's always around the corner.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_2">
+        <text>What can you do. %s fell in %s. The %s are probably regrouping. Life goes on.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_3">
+        <text>Heard about %s in %s. Hope the %s know how to look after themselves.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_amistoso_4">
+        <text>Feel bad about %s. Fell in %s, was with the %s, young guy. Nobody deserves to die like that.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_5">
+        <text>Poor %s. Doesn't matter what faction, when someone falls in %s we're all stalkers. Respect to the %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_6">
+        <text>%s, one less life in %s. Was with the %s, but in the end we're all brothers in the Zone.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_7">
+        <text>Sad news, brother. %s fell in %s, was with the %s. Send my condolences to the squad.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_8">
+        <text>Heard about %s. Fell in %s, was one of the %s boys. The Zone's a real bitch.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_enemigo_4">
+        <text>Well deserved. %s suffered out there in %s. Was with the %s, hope it was painful.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_5">
+        <text>Can I borrow your rifle to go celebrate? %s bit the dust in %s. He was with the %s, great news.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_6">
+        <text>You don't know how happy this makes me. %s ain't bothering anyone. Fell in %s, was with the %s. Good on whoever did it.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_7">
+        <text>%s bites the dust in %s. Was with the %s, had it coming. The Zone is just.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_8">
+        <text>Ha, doesn't surprise me. %s fell in %s like the dog he was. His days were numbered, he was with the %s.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_neutral_4">
+        <text>Heard about %s in %s. Was with the %s. The Zone claims another victim.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_5">
+        <text>%s down in %s, of the %s. Noted. No opinion, just stating the fact.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_6">
+        <text>Life goes on. %s is in an eternal sleep in %s now. Was with the %s, may there be peace for him.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_7">
+        <text>Noted. %s died in %s, former member of the %s. May he rest in the beyond.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_8">
+        <text>Heard the report. %s in %s, of the %s. We all end up the same in this cursed land.</text>
+    </string>
+</string_table>

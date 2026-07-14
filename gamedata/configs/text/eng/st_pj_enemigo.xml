@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (ENEMY relation)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_enemigo_1">
+        <text>Found %s's body in %s. He was with the %s. Rot in hell. One less enemy to worry about.</text>
+    </string>
+    <string id="st_pjnews_enemigo_2">
+        <text>One more %s who crossed the line. Fell in %s. He was with the %s, good riddance, hope he rots in the Zone.</text>
+    </string>
+    <string id="st_pjnews_enemigo_3">
+        <text>Death reported: %s fell in %s, he was with the %s. Doesn't bother me, one less scumbag.</text>
+    </string>
+
+    <string id="st_pjnews_enemigo_4">
+        <text>Remember %s? Turned up dead in %s, was with the %s. Don't expect any tears from me.</text>
+    </string>
+    <string id="st_pjnews_enemigo_5">
+        <text>Get this: %s caught a bullet in %s, was with the %s. Makes my day to announce it.</text>
+    </string>
+    <string id="st_pjnews_enemigo_6">
+        <text>Justice from above. %s showed up dead in %s, was with the %s. Let the Zone judge him.</text>
+    </string>
+    <string id="st_pjnews_enemigo_7">
+        <text>Got a happy report: %s ain't bothering anyone anymore. Found him in %s, was with the %s. Well deserved.</text>
+    </string>
+    <string id="st_pjnews_enemigo_8">
+        <text>%s rests in peace forever in %s. Was with the %s. Hope hell exists for scum like him.</text>
+    </string>
+</string_table>

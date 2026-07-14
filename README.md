@@ -1,89 +1,109 @@
-### ¿Qué es Interactive PDA Reports?
+### What is Interactive PDA Reports?
 
-Mod de inmersión para **S.T.A.L.K.E.R. Anomaly** que hace que tu personaje y los NPCs de la Zona se comuniquen por radio a través de la red de la PDA.
+An immersion mod for **S.T.A.L.K.E.R. Anomaly** that makes your character and NPCs communicate via radio through the PDA network.
 
-- **Tu PJ reporta:** Al saquear un cuerpo, tu personaje envía automáticamente un mensaje a `[Todos]`. El texto cambia según tu relación con el muerto:
-  - **Amistoso** (relación ≥ 400): Lamento la pérdida de un aliado.
-  - **Neutral** (entre -400 y 400): Reporte genérico de un cuerpo.
-  - **Enemigo** (≤ -400, no lo mataste vos): Reportás el cuerpo de un enemigo.
-  - **Víctima** (≤ -400, lo mataste vos): Te burlás de haberlo liquidado.
+- **You report looting:** When looting a corpse, your character automatically sends a message to the PDA. The text changes depending on your relationship with the dead:
+  - **Friendly** (relation ≥ 400): Mourning the loss of an ally.
+  - **Neutral** (between -400 and 400): Generic death report.
+  - **Enemy** (≤ -400, you didn't kill them): Reporting an enemy corpse.
+  - **Victim** (≤ -400, you killed them): Taunting about the kill.
 
-- **NPCs responden:** Si hay stalkers de la misma facción del muerto vivos en el mapa, uno de ellos te responde por PDA después de un delay aleatorio configurable. El tono de la respuesta coincide con tu reporte (si te burlaste, te responden con amenazas).
+- **NPCs respond:** If stalkers from the same faction as the victim are alive on the map, one of them replies via PDA after a configurable random delay. The tone matches your report (if you taunted, they respond with threats).
 
-- **Comentario externo:** Además, un NPC de una facción distinta a la del muerto puede comentar lo ocurrido, con su propio delay. La segunda respuesta espera a que la primera se haya enviado antes de dispararse.
+- **External comment:** Additionally, an NPC from a different faction may comment on the event with its own delay. The second response waits for the first one to be sent.
 
-- **Factor Ego:** Controlá qué porcentaje de cuerpos se reportan realmente. A 100% se reportan todos; a 50% se reporta 1 de cada 2.
+- **Ego Factor:** Controls what percentage of bodies actually get reported. At 100% all bodies are reported; at 50% only 1 in 2.
 
-### Instalación
+- **Cooldown:** Optionally enables a timer between reports to prevent spam.
 
-Opción A — **Mod Organizer 2**: Instalá el `.zip` o `.7z` desde el botón "Instalar un nuevo mod desde un archivo". Activá la casilla.
+- **Reward:** After a configurable number of reported bodies, you receive money from Sidorovich via PDA after a few seconds. Optionally exclude bodies you killed yourself.
 
-Opción B — **Manual**: Extraé la carpeta `gamedata` dentro de la raíz de S.T.A.L.K.E.R. Anomaly.
+- **Persistence:** The body counter and pending rewards are saved on exit and restored on load, even across level changes.
 
-> El mod no sobrescribe archivos nativos del juego.
+- **Available in Spanish and English.** The mod automatically uses the game's language.
 
-### Configuración (MCM)
+### Installation
 
-Si tenés MCM instalado, aparece "Interactive PDA Reports" en el menú de opciones. Sliders disponibles:
+Option A — **Mod Organizer 2**: Install the `.zip` or `.7z` via the "Install a new mod from an archive" button. Enable the checkbox.
 
-| Slider | Descripción | Defecto |
+Option B — **Manual**: Extract the `gamedata` folder into your S.T.A.L.K.E.R. Anomaly root directory.
+
+> The mod does not overwrite any native game files.
+
+### Configuration (MCM)
+
+If you have MCM installed, "Interactive PDA Reports" appears in the options menu. Available sliders:
+
+| Slider | Description | Default |
 |---|---|---|
-| **Factor Ego** | Probabilidad de que un cuerpo sea reportado. 100% = siempre, 0% = nunca. | 100% |
-| **Probabilidad de Respuesta** | Probabilidad de que un NPC de la misma facción conteste. | 40% |
-| **Probabilidad de Comentario Externo** | Probabilidad de que un NPC de otra facción comente. | 30% |
-| **Tiempo Respuesta 1 (Mín/Máx)** | Rango de delay (en decisegundos) para la primera respuesta. 30 = 3 seg. | 30-60 |
-| **Tiempo Respuesta 2 (Mín/Máx)** | Rango de delay (en decisegundos) para el comentario externo. | 40-80 |
+| **Ego Factor** | Chance of a body being reported. 100% = always, 0% = never. | 100% |
+| **Cooldown** | Enable/disable and duration of the timer between reports. | Disabled, 60s |
+| **Reward** | Enable/disable payment, amount per report, bodies per payout, exclude your own kills. | Enabled, 10 rub, 5 bodies |
+| **Response Probability** | Chance of an NPC from the same faction replying. | 50% |
+| **External Comment Probability** | Chance of an NPC from a different faction commenting. | 30% |
+| **Response Time 1 (Min/Max)** | Delay range (in deciseconds) for the first response. 30 = 3 sec. | 30-60 |
+| **Response Time 2 (Min/Max)** | Delay range (in deciseconds) for the external comment. | 40-80 |
 
-Si no usás MCM, el mod aplica los valores por defecto automáticamente.
+Without MCM, the mod uses the default values automatically.
 
-### Localización y Expansión (XML)
+### Localization and Expansion (XML)
 
-Los textos están en `gamedata/configs/text/spa/`. Editá los archivos `st_ipreports_*.xml` y `st_pj_*.xml` con cualquier editor de texto.
+Text files are located in `gamedata/configs/text/spa/` for Spanish and `gamedata/configs/text/eng/` for English. Edit the `st_ipreports_*.xml` and `st_pj_*.xml` files with any text editor.
 
-#### Reporte del Jugador
+#### Player Report
 
-Archivos: `st_pj_amistoso.xml`, `st_pj_neutral.xml`, `st_pj_enemigo.xml`, `st_ipreports_victima.xml`.
+Files: `st_pj_amistoso.xml`, `st_pj_neutral.xml`, `st_pj_enemigo.xml`, `st_ipreports_victima.xml`.
 
-Tres `%s` en orden: **nombre del muerto**, **zona actual**, **facción del muerto**.
+Three `%s` in order: **victim name**, **current zone**, **victim faction**.
 
 ```xml
 <string id="st_pjnews_amistoso_1">
-    <text>Encontré el cuerpo de %s en %s. Descansa en paz, camarada de %s.</text>
+    <text>Damn... Found my brother %s out here in %s. He was a good %s, may the Zone keep him in her glory.</text>
 </string>
 ```
 
-#### Respuesta del NPC (primera)
+#### NPC Response (first)
 
-Archivo: `st_pj_respuestas.xml`.
+File: `st_pj_respuestas.xml`.
 
-Usa `{player}`, `{zone}`, `{victim}` como placeholders (en cualquier orden y sin límite de cantidad).
+Uses `{player}`, `{zone}`, `{victim}` placeholders (in any order, unlimited use).
 
 ```xml
 <string id="st_pjnews_respuesta_victima_1">
-    <text>¿Te haces el vivo, {player}? Te tenemos en la mira en {zone}.</text>
+    <text>You think you're tough, {player}? We've got our eyes on you. Your luck won't last long in {zone}, mark my words.</text>
 </string>
 ```
 
-#### Comentario Externo (segunda respuesta)
+#### External Comment (second response)
 
-Archivo: `st_ipreports_segunda_respuesta.xml`.
+File: `st_ipreports_segunda_respuesta.xml`.
 
-Usa `%s` simple en orden: **nombre del muerto**, **zona**, **facción del muerto**.
+Uses simple `%s` in order: **victim name**, **zone**, **victim faction**.
 
-### Archivos del Mod
+### Mod Files
 
 ```
 gamedata/
 ├── scripts/
-│   ├── ipreports_interactive.script   # Lógica principal
-│   └── ipreports_mcm.script           # Configuración MCM
-└── configs/text/spa/
-    ├── st_ipreports.xml               # Strings base (Todos, conexión)
-    ├── st_ipreports_mcm.xml           # Traducciones del MCM
-    ├── st_ipreports_victima.xml       # Frases de víctima (lo maté yo)
-    ├── st_ipreports_segunda_respuesta.xml  # Comentarios externos
-    ├── st_pj_amistoso.xml             # Frases de aliado muerto
-    ├── st_pj_neutral.xml              # Frases de neutral muerto
-    ├── st_pj_enemigo.xml              # Frases de enemigo muerto
-    └── st_pj_respuestas.xml           # Respuestas de NPCs
+│   ├── ipreports_interactive.script   # Main logic
+│   └── ipreports_mcm.script           # MCM configuration
+└── configs/text/
+    ├── spa/                           # Spanish
+    │   ├── st_ipreports.xml
+    │   ├── st_ipreports_mcm.xml
+    │   ├── st_ipreports_victima.xml
+    │   ├── st_ipreports_segunda_respuesta.xml
+    │   ├── st_pj_amistoso.xml
+    │   ├── st_pj_neutral.xml
+    │   ├── st_pj_enemigo.xml
+    │   └── st_pj_respuestas.xml
+    └── eng/                           # English
+        ├── st_ipreports.xml
+        ├── st_ipreports_mcm.xml
+        ├── st_ipreports_victima.xml
+        ├── st_ipreports_segunda_respuesta.xml
+        ├── st_pj_amistoso.xml
+        ├── st_pj_neutral.xml
+        ├── st_pj_enemigo.xml
+        └── st_pj_respuestas.xml
 ```

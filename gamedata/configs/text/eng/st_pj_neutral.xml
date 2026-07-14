@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (NEUTRAL relation)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_neutral_1">
+        <text>Reporting a stiff... It's %s out here in %s, from the %s. The guy already moved on to a better place.</text>
+    </string>
+    <string id="st_pjnews_neutral_2">
+        <text>Found %s's body here in %s. He was with the %s. Looks like it happened a while ago, mutants are already sniffing around.</text>
+    </string>
+    <string id="st_pjnews_neutral_3">
+        <text>Poor bastard... left dead %s here in %s, from the %s. The Zone doesn't forgive anyone, stay sharp.</text>
+    </string>
+
+    <string id="st_pjnews_neutral_4">
+        <text>Found a body here. It's %s, in %s. Used to run with the %s, but he's not running with anyone anymore.</text>
+    </string>
+    <string id="st_pjnews_neutral_5">
+        <text>%s is dead in %s. The %s lost one of theirs. No comment, just the facts.</text>
+    </string>
+    <string id="st_pjnews_neutral_6">
+        <text>Got a fresh corpse. The stiff is %s, fell in %s, was with the %s. Just letting you know.</text>
+    </string>
+    <string id="st_pjnews_neutral_7">
+        <text>Reporting that %s went to eternal rest in %s. Was with the %s. May the earth rest easy on him.</text>
+    </string>
+    <string id="st_pjnews_neutral_8">
+        <text>Body alert: %s in %s, former member of the %s. Loot fast if you want anything useful.</text>
+    </string>
+</string_table>

@@ -26,6 +26,15 @@
         <text>Mala sangre... %s aparecio muerto en %s. Era de los %s, se va a extranar en las fogatas.</text>
     </string>
     <string id="st_pjnews_amistoso_8">
-        <text>%s no esta mas entre nosotros. Cayo en %s. Era de los %s, lo voy a extranar, buena onda el pibe.</text>
+        <text>%s no esta mas entre nosotros. Cayo en %s. Era de los %s, lo voy a extranar, buena onda el chico.</text>
+    </string>
+    <string id="st_pjnews_amistoso_9">
+        <text>La Zona se cobro otro. Encontre a %s en %s, era %s de los nuestros. Que en paz descanse.</text>
+    </string>
+    <string id="st_pjnews_amistoso_10">
+        <text>Hermanos, malas noticias. %s cayo en %s, era de los %s. La hermandad se hace mas pequena.</text>
+    </string>
+    <string id="st_pjnews_amistoso_11">
+        <text>No me lo puedo creer, %s tirado en %s. Era un %s de los buenos, se va a hacer falta.</text>
     </string>
 </string_table>

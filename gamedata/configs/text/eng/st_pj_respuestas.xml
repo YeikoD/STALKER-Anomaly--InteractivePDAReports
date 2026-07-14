@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    NPC RESPONSES TO THE PLAYER'S REPORT
+    Format: {player} = player name, {zone} = current zone, {victim} = victim name
+--><string_table>
+    <string id="st_pjnews_respuesta_victima_1">
+        <text>You think you're tough, {player}? We've got our eyes on you. Your luck won't last long in {zone}, mark my words.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_2">
+        <text>Shut your mouth, scum! {victim} was ten times the stalker you'll ever be. If I see you in {zone} I'll fill you with lead.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_3">
+        <text>Enjoy it while you can, {player}. You'll be the next one lying dead. We swear vengeance for {victim}.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_enemigo_1">
+        <text>Good riddance. One less piece of shit roaming around here.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_2">
+        <text>The Zone dishes out justice sometimes. You're next if you're not careful.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_3">
+        <text>Finally someone put that rat down. Good contribution to the network.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_amistoso_1">
+        <text>What a tragedy, brother... {victim} was a real one. Gotta watch our backs here in {zone}, it's getting rough.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_2">
+        <text>I can't believe it... Rest in peace. Let me know if you need a hand avenging {victim}, {player}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_3">
+        <text>Fuck, we lost another good one. Thanks for the heads up, {player}, stay safe out there.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_neutral_1">
+        <text>Noted. Try to loot quick and get out before the mutants catch the scent.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_2">
+        <text>Thanks for the report, stalker. I'll avoid passing through {zone} for a while.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_3">
+        <text>Tough break... one day you're drinking vodka by the fire, next day you're dog food. Stay safe.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_victima_4">
+        <text>I'll be waiting for you, {player}. In {zone} or wherever, I'll fucking destroy you for what you did to {victim}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_5">
+        <text>{player}, you son of a bitch. We'll hunt you down like the dog you are. {zone} will become your grave.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_6">
+        <text>Think you're a hotshot, {player}? {victim} was my blood, I swear I'll bury you right next to him in {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_7">
+        <text>Don't hide, {player}. Word travels fast in {zone}, and everyone knows you wasted {victim}. Your time's up.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_8">
+        <text>Watch where you step, {player}. {zone} won't be big enough to hide from what's coming for you because of {victim}.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_enemigo_4">
+        <text>Glad to hear it, honestly. Hope the one who caught the bullet suffered good.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_5">
+        <text>Got what he deserved for being stupid. The Zone doesn't discriminate, we all end up as pig food eventually.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_6">
+        <text>One less to worry about. Good on whoever took him down, hope it hurt.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_7">
+        <text>Had it coming. That bastard made life hell for more than a few people around here.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_8">
+        <text>Well done. Hope he suffered, hope he knew who sent him to the other side.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_amistoso_4">
+        <text>God damn it, {victim} didn't deserve this. He was good people, one of the few left in {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_5">
+        <text>Hurts my soul, {player}. {victim} and I shared more than one campfire in {zone}. Gonna miss him.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_6">
+        <text>Of all people, {victim}... just when things were calming down in {zone}. The Zone never gives a break.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_7">
+        <text>You don't know how much this hurts. {victim} saved my ass once. If you need anything to honor him, just ask.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_8">
+        <text>What a shame, brother. {victim} went to the stalker's heaven. {zone} lost a real one today.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_neutral_4">
+        <text>Noted. Better stay away from {zone} for a while, until the dogs forget the smell of death.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_5">
+        <text>Good looking out. Things are hot in {zone}, better keep your eyes wide open.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_6">
+        <text>Death's always lurking in the Zone. Thanks for the tip, I'll remember it.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_7">
+        <text>Noted. If you see anything weird in {zone} report again, that's what the network's for.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_8">
+        <text>What can you do. {zone} just got one soul lighter. Hope the mutants don't go crazy over the smell.</text>
+    </string>
+</string_table>

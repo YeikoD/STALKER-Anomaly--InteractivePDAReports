@@ -7,7 +7,7 @@
         <text>Recien limpie a este infeliz. %s paso a mejor vida en %s, de los %s, no tuvo oportunidad contra mi. Una rata menos.</text>
     </string>
     <string id="st_pjnews_victima_2">
-        <text>?Te pensabas que me ibas a ganar, %s? Mandaste fruta aca en %s. Otro %s que dobla el lomo gracias a mi fusil.</text>
+        <text>Te pensabas que me ibas a ganar, %s? Mandaste fruta aca en %s. Otro %s que dobla el lomo gracias a mi fusil.</text>
     </string>
     <string id="st_pjnews_victima_3">
         <text>Le clave una bala en la frente a %s aca en %s. Sos historia, %s. La proxima piensen dos veces antes de apuntarme.</text>
@@ -27,5 +27,14 @@
     </string>
     <string id="st_pjnews_victima_8">
         <text>Reporte de baja: %s neutralizado en %s, de los %s. Se lo busco solito, yo solo cumpli.</text>
+    </string>
+    <string id="st_pjnews_victima_9">
+        <text>Un %s menos que respira en %s. De los %s, por supuesto. No me pidan que llore, me hizo un favor.</text>
+    </string>
+    <string id="st_pjnews_victima_10">
+        <text>%s se quedo corto en %s. Era de los %s y ahora es abono para la Zona. Siguiente.</text>
+    </string>
+    <string id="st_pjnews_victima_11">
+        <text>Ajusticiado: %s en %s. Pertenecia a los %s, mala decision cruzarse conmigo.</text>
     </string>
 </string_table>

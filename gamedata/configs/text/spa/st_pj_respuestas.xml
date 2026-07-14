@@ -4,10 +4,10 @@
     Formato: {player} = nombre del jugador, {zone} = zona actual, {victim} = nombre de la victima
 --><string_table>
     <string id="st_pjnews_respuesta_victima_1">
-        <text>?Te haces el vivo, {player}? Te tenemos en la mira. No te va a durar mucho la alegria en {zone}, sabelo.</text>
+        <text>Te haces el vivo, {player}? Te tenemos en la mira. No te va a durar mucho la alegria en {zone}, sabelo.</text>
     </string>
     <string id="st_pjnews_respuesta_victima_2">
-        <text>!Callate la boca, basura! {player} era mil veces mejor stalker que vos. Si te cruzo aca en {zone} te lleno de plomo.</text>
+        <text>Callate la boca, basura! {player} era mil veces mejor stalker que vos. Si te cruzo aca en {zone} te lleno de plomo.</text>
     </string>
     <string id="st_pjnews_respuesta_victima_3">
         <text>Disfruta mientras puedas, {player}. El proximo en quedar tirado vas a ser vos. Juramos venganza por {victim}.</text>
@@ -24,7 +24,7 @@
     </string>
 
     <string id="st_pjnews_respuesta_amistoso_1">
-        <text>Que desgracia, bo... {victim} era un tipazo. Hay que cuidar las espaldas aca en {zone}, se esta poniendo jodido.</text>
+        <text>Que desgracia, hermano... {victim} era un tipazo. Hay que cuidar las espaldas aca en {zone}, se esta poniendo jodido.</text>
     </string>
     <string id="st_pjnews_respuesta_amistoso_2">
         <text>No te lo puedo creer... Que en paz descanse. Avisa si necesitas una mano para vengar a {victim}, {player}.</text>

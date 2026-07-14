@@ -10,7 +10,7 @@
         <text>Escuche lo que le paso a %s en %s. No importa la faccion, siempre es una vida menos. Respetos para los %s.</text>
     </string>
     <string id="st_pjnews_segresp_amistoso_3">
-        <text>Pobre %s, lo vi una vez. Cayo en %s, era de los %s, parecia buen pibe.</text>
+        <text>Pobre %s, lo vi una vez. Cayo en %s, era de los %s, parecia buen chico.</text>
     </string>
 
     <string id="st_pjnews_segresp_enemigo_1">
@@ -43,10 +43,10 @@
         <text>%s, una vida menos en %s. Era de los %s, pero al final todos somos hermanos en la Zona.</text>
     </string>
     <string id="st_pjnews_segresp_amistoso_7">
-        <text>Que tristeza bo. %s cayo en %s, era de los %s. Mandale condolencias a la banda de mi parte.</text>
+        <text>Que tristeza hermano. %s cayo en %s, era de los %s. Mandale condolencias a la banda de mi parte.</text>
     </string>
     <string id="st_pjnews_segresp_amistoso_8">
-        <text>Escuche lo de %s. Cayo en %s, era pibe de los %s. La Zona es una hija de puta.</text>
+        <text>Escuche lo de %s. Cayo en %s, era chico de los %s. La Zona es una hija de puta.</text>
     </string>
 
     <string id="st_pjnews_segresp_enemigo_4">

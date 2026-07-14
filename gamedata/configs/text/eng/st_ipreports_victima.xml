@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (when the player themselves killed the victim)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_victima_1">
+        <text>Just took out this bastard. %s bit the dust in %s, one of the %s. Didn't stand a chance against me. One less rat.</text>
+    </string>
+    <string id="st_pjnews_victima_2">
+        <text>Thought you could take me, %s? You were dead wrong here in %s. Another %s eating dirt thanks to my rifle.</text>
+    </string>
+    <string id="st_pjnews_victima_3">
+        <text>Put a bullet in %s's head here in %s. You're history, %s. Next time think twice before aiming at me.</text>
+    </string>
+
+    <string id="st_pjnews_victima_4">
+        <text>Just executed %s in %s. Was running with the %s, now he's running with nobody. Problem solved.</text>
+    </string>
+    <string id="st_pjnews_victima_5">
+        <text>%s tried to fuck me over in %s. Was with the %s, now he's pig food.</text>
+    </string>
+    <string id="st_pjnews_victima_6">
+        <text>Took down %s in %s. The %s have a hole in their ranks thanks to me. Don't look for me, you'll find me.</text>
+    </string>
+    <string id="st_pjnews_victima_7">
+        <text>%s thought he could take me in %s. Mistake. Was with the %s, now he's with the dirt. Zone's justice.</text>
+    </string>
+    <string id="st_pjnews_victima_8">
+        <text>Casualty report: %s neutralized in %s, of the %s. He asked for it, I just delivered.</text>
+    </string>
+    <string id="st_pjnews_victima_9">
+        <text>One less %s breathing in %s. Of the %s, of course. Don't ask me to cry, he did me a favor.</text>
+    </string>
+    <string id="st_pjnews_victima_10">
+        <text>%s came up short in %s. Was with the %s and now he's fertilizer for the Zone. Next.</text>
+    </string>
+    <string id="st_pjnews_victima_11">
+        <text>Executed: %s in %s. Belonged to the %s. Bad decision crossing my path.</text>
+    </string>
+</string_table>

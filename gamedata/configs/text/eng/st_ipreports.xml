@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="st_pjnews_pda_con">
+        <text>PDA: Connection established.</text>
+    </string>
+    <string id="st_pjnews_todos">
+        <text>All</text>
+    </string>
+
+    <string id="st_pjnews_privado">
+        <text>Private</text>
+    </string>
+    <string id="st_pjnews_reward_sender">
+        <text>Sidorovich</text>
+    </string>
+    <string id="st_pjnews_reward_sender_faction">
+        <text>Merchant</text>
+    </string>
+
+    <string id="st_pjnews_reward_1">
+        <text>Hey {player}, here's {money} rubles for reporting {count} bodies. Keep it up, the Zone needs people like you.</text>
+    </string>
+    <string id="st_pjnews_reward_2">
+        <text>{player}, {money} rubles for your cooperation. Those {count} reports help keep order... or whatever's left of it.</text>
+    </string>
+    <string id="st_pjnews_reward_3">
+        <text>Good work, {player}. Sent you {money} for the last {count} stiffs. Keep 'em coming.</text>
+    </string>
+    <string id="st_pjnews_reward_4">
+        <text>{count} bodies reported, {money} rubles deposited. Keep at it, {player}, there's always work for a stalker with a nose for trouble.</text>
+    </string>
+    <string id="st_pjnews_reward_5">
+        <text>Got your {count} reports, {player}. Transferred {money} rubles. Don't get cocky — the Zone always takes her cut.</text>
+    </string>
+</string_table>
