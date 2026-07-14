@@ -49,6 +49,13 @@
         <text>Cantidad de cuerpos reportados necesarios para recibir el pago.\n1 = cada reporte, 5 = cada 5 reportes.</text>
     </string>
 
+    <string id="ui_mcm_ipreports_reward_exclude_kills">
+        <text>Excluir Cadaveres Matados por Ti</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_exclude_kills_desc">
+        <text>Si esta activado, los cuerpos que mataste personalmente NO cuentan para la recompensa.\nDesactivado por defecto (todos los cuerpos cuentan).</text>
+    </string>
+
     <string id="ui_mcm_ipreports_prob_title">
         <text>Probabilidades de Respuesta</text>
     </string>

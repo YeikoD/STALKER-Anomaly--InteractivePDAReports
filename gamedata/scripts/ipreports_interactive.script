@@ -136,6 +136,7 @@ function al_entrar_al_mundo()
     cadaveres_reportados = {}
     muertos_por_el_actor = {}
     cadaver_pendiente = nil
+    reward_corpse_counter = 0
 
     total_frases.amistoso = contar_frases_en_xml("st_pjnews_amistoso")
     total_frases.neutral = contar_frases_en_xml("st_pjnews_neutral")
@@ -366,31 +367,47 @@ function procesar_reporte(datos)
     local reward_toggle = (ui_mcm and ui_mcm.get("ipreports/reward_toggle")) or false
     local reward_amount = (ui_mcm and ui_mcm.get("ipreports/reward_amount")) or 10
     local reward_interval = (ui_mcm and ui_mcm.get("ipreports/reward_interval")) or 5
-    if reward_toggle and reward_amount > 0 and not lo_mate_yo then
+    local reward_exclude_kills = (ui_mcm and ui_mcm.get("ipreports/reward_exclude_kills")) or false
+    pj_log("recompensa", "DEBUG reward_toggle=%s reward_amount=%s reward_interval=%s reward_corpse_counter=%s lo_mate_yo=%s reward_exclude_kills=%s", tostring(reward_toggle), tostring(reward_amount), tostring(reward_interval), tostring(reward_corpse_counter), tostring(lo_mate_yo), tostring(reward_exclude_kills))
+    if reward_toggle and reward_amount > 0 and not (reward_exclude_kills and lo_mate_yo) then
         reward_corpse_counter = reward_corpse_counter + 1
+        pj_log("recompensa", "DEBUG contador incrementado a %s (intervalo=%s)", tostring(reward_corpse_counter), tostring(reward_interval))
         if reward_corpse_counter >= reward_interval then
             local total_money = reward_corpse_counter * reward_amount
-            db.actor:give_money(total_money)
-
-            local reward_msgs = {
-                game.translate_string("st_pjnews_reward_1"),
-                game.translate_string("st_pjnews_reward_2"),
-                game.translate_string("st_pjnews_reward_3"),
-                game.translate_string("st_pjnews_reward_4"),
-                game.translate_string("st_pjnews_reward_5"),
+            local reward_data = {
+                nombre_player = nombre_player,
+                total_money = total_money,
+                count = reward_corpse_counter
             }
-            local msg_text = reward_msgs[math.random(1, #reward_msgs)]
-            msg_text = msg_text:gsub("{player}", nombre_player):gsub("{money}", tostring(total_money)):gsub("{count}", tostring(reward_corpse_counter))
 
-            local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
-            local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
-            local privado_str = game.translate_string("st_pjnews_privado")
-            local sender_str = game.translate_string("st_pjnews_reward_sender") .. ", " .. game.translate_string("st_pjnews_reward_sender_faction")
-            local msg = strformat("%s%s: %s%s", inc_clr, privado_str, def_clr, msg_text)
-            dynamic_news_helper.send_tip(msg, sender_str, nil, 10, "ui_inGame2_sid", "news", "npc")
+            local delay = math.random(50, 150) / 10
+            pj_log("recompensa", "Recompensa enviada en %s segundos...", tostring(delay))
 
-            pj_log("interactive", "Recompensa de %d rublos por %d cuerpo(s) otorgada", total_money, reward_corpse_counter)
+            CreateTimeEvent("ipreports_Reward_Event", "enviar_recompensa", delay, function()
+                db.actor:give_money(reward_data.total_money)
+
+                local reward_msgs = {
+                    game.translate_string("st_pjnews_reward_1"),
+                    game.translate_string("st_pjnews_reward_2"),
+                    game.translate_string("st_pjnews_reward_3"),
+                    game.translate_string("st_pjnews_reward_4"),
+                    game.translate_string("st_pjnews_reward_5"),
+                }
+                local msg_text = reward_msgs[math.random(1, #reward_msgs)]
+                msg_text = msg_text:gsub("{player}", reward_data.nombre_player):gsub("{money}", tostring(reward_data.total_money)):gsub("{count}", tostring(reward_data.count))
+
+                local def_clr = strformat("%c[%s,%s,%s,%s]", 255, 190, 190, 190)
+                local inc_clr = strformat("%c[%s,%s,%s,%s]", 255, 0, 140, 180)
+                local privado_str = game.translate_string("st_pjnews_privado")
+                local sender_str = game.translate_string("st_pjnews_reward_sender") .. ", " .. game.translate_string("st_pjnews_reward_sender_faction")
+                local msg = strformat("%s%s: %s%s", inc_clr, privado_str, def_clr, msg_text)
+                dynamic_news_helper.send_tip(msg, sender_str, nil, 10, "ui_inGame2_sid", "news", "npc")
+
+                pj_log("interactive", "Recompensa de %d rublos por %d cuerpo(s) otorgada", reward_data.total_money, reward_data.count)
+                return true
+            end)
             reward_corpse_counter = 0
+            pj_log("recompensa", "DEBUG contador reseteado a 0")
         end
     end
 
