@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (FRIENDLY relation)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_amistoso_1">
+        <text>Проклятье... Нашёл моего брата %s здесь, в %s. Он был хорошим %s, пусть Зона хранит его в своей славе.</text>
+    </string>
+    <string id="st_pjnews_amistoso_2">
+        <text>Не может быть... %s пал здесь, в %s. Мы, %s, потеряли одного из лучших сегодня. Покойся с миром, брат.</text>
+    </string>
+    <string id="st_pjnews_amistoso_3">
+        <text>Плохие новости для нас... Нашёл %s мёртвым в %s. Он был надёжным %s, будут вспоминать у костра.</text>
+    </string>
+
+    <string id="st_pjnews_amistoso_4">
+        <text>Только что нашёл %s в %s. Не выжил. Он был %s, один из нас. Большая потеря для братства.</text>
+    </string>
+    <string id="st_pjnews_amistoso_5">
+        <text>Братья, %s пал в %s. Брат %s покинул нас. Пусть Зона примет его.</text>
+    </string>
+    <string id="st_pjnews_amistoso_6">
+        <text>Не могу поверить. %s найден мёртвым в %s. Мы, %s, в трауре.</text>
+    </string>
+    <string id="st_pjnews_amistoso_7">
+        <text>Плохая кровь... %s объявился мёртвым в %s. Он был с %s, буду скучать по нему у костров.</text>
+    </string>
+    <string id="st_pjnews_amistoso_8">
+        <text>%s больше с нами нет. Пал в %s. Он был %s до мозга костей, буду скучать, хороший парень.</text>
+    </string>
+    <string id="st_pjnews_amistoso_9">
+        <text>Зона забрала ещё одного. Нашёл %s в %s, он был %s, один из нас. Покойся с миром.</text>
+    </string>
+    <string id="st_pjnews_amistoso_10">
+        <text>Братья, плохие новости. %s пал в %s, он был с %s. Братство сегодня стало меньше.</text>
+    </string>
+    <string id="st_pjnews_amistoso_11">
+        <text>Не могу поверить, %s мёртв в %s. Он был хорошим %s, настоящим. Буду скучать.</text>
+    </string>
+</string_table>

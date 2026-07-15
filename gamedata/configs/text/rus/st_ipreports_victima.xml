@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (when the player themselves killed the victim)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_victima_1">
+        <text>Только что прикончил этого ублюдка. %s откинулся в %s, один из %s. Шансов у него не было. Одной крысой меньше.</text>
+    </string>
+    <string id="st_pjnews_victima_2">
+        <text>Думал, сможешь меня взять, %s? Сильно ошибся здесь, в %s. Ещё один %s жрёт землю благодаря моей винтовке.</text>
+    </string>
+    <string id="st_pjnews_victima_3">
+        <text>Всадил пулю в голову %s здесь, в %s. Ты история, %s. В следующий раз думай, прежде чем целиться в меня.</text>
+    </string>
+
+    <string id="st_pjnews_victima_4">
+        <text>Только что казнил %s в %s. Бегал с %s, теперь ни с кем не бегает. Проблема решена.</text>
+    </string>
+    <string id="st_pjnews_victima_5">
+        <text>%s попытался меня наебать в %s. Был с %s, теперь он корм для кабанов.</text>
+    </string>
+    <string id="st_pjnews_victima_6">
+        <text>Снял %s в %s. У %s образовалась дыра в рядах благодаря мне. Не ищите меня, сами найдёте.</text>
+    </string>
+    <string id="st_pjnews_victima_7">
+        <text>%s думал, что сможет меня взять в %s. Ошибка. Был с %s, теперь он с землёй. Справедливость Зоны.</text>
+    </string>
+    <string id="st_pjnews_victima_8">
+        <text>Боевое донесение: %s нейтрализован в %s, из %s. Он сам напросился, я просто сделал свою работу.</text>
+    </string>
+    <string id="st_pjnews_victima_9">
+        <text>Одним %s меньше в %s. Из %s, разумеется. Не просите меня плакать, он оказал мне услугу.</text>
+    </string>
+    <string id="st_pjnews_victima_10">
+        <text>%s не дотянул в %s. Был с %s, а теперь он удобрение для Зоны. Следующий.</text>
+    </string>
+    <string id="st_pjnews_victima_11">
+        <text>Казнён: %s в %s. Принадлежал %s. Плохое решение — перейти мне дорогу.</text>
+    </string>
+</string_table>

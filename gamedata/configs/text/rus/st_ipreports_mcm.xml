@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<string_table>
+    <string id="ui_mcm_menu_ipreports">
+        <text>Интерактивные отчёты ПДА</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_title">
+        <text>Настройки</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_cd_title">
+        <text>Задержка отчётов</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_cooldown_toggle">
+        <text>Включить задержку</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_toggle_desc">
+        <text>Включает таймер, блокирующий новые отчёты пока активен. Полезно для предотвращения спама.</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_time">
+        <text>Длительность задержки (сек)</text>
+    </string>
+    <string id="ui_mcm_ipreports_cooldown_time_desc">
+        <text>Время в секундах между отчетами.\n60 = 1 минута, 300 = 5 минут.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_title">
+        <text>Награда</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_toggle">
+        <text>Давать деньги за отчёт</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_toggle_desc">
+        <text>Даёт игроку деньги каждый раз при успешном отчёте.</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_amount">
+        <text>Сумма награды</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_amount_desc">
+        <text>Сумма рублей за каждый отчёт.\n10 = Минимум, 50 = Максимум.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_interval">
+        <text>Тел за выплату</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_interval_desc">
+        <text>Количество отмеченных тел для получения выплаты.\n1 = каждый отчёт, 5 = каждые 5 отчётов.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_reward_exclude_kills">
+        <text>Исключить свои убийства</text>
+    </string>
+    <string id="ui_mcm_ipreports_reward_exclude_kills_desc">
+        <text>Если включено, лично убитые вами тела НЕ считаются в награду.\nПо умолчанию отключено (все тела считаются).</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_prob_title">
+        <text>Вероятность ответа</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_time_title">
+        <text>Время ответа</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_factorEgo">
+        <text>Фактор эго (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_factorEgo_desc">
+        <text>Шанс сообщить о теле жертвы.\n100% = Все тела, 50% = 1 из 2, 0% = Никогда.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_respuesta_probabilidad">
+        <text>Вероятность ответа (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_respuesta_probabilidad_desc">
+        <text>Шанс, что NPC из той же фракции ответит на отчёт.\n0% = Никогда, 100% = Всегда.</text>
+    </string>
+    <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad">
+        <text>Вероятность внешнего ответа (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_segunda_respuesta_probabilidad_desc">
+        <text>Шанс, что NPC из другой фракции прокомментирует событие.\n0% = Никогда, 100% = Всегда.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_min">
+        <text>Мин. время ответа</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_min_desc">
+        <text>Минимальное время (в децисекундах) до ответа первого NPC.\n10 = 1 сек, 30 = 3 сек, 100 = 10 сек.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_max">
+        <text>Макс. время ответа</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_1_max_desc">
+        <text>Максимальное время (в децисекундах) до ответа первого NPC.\n10 = 1 сек, 60 = 6 сек, 100 = 10 сек.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_min">
+        <text>Мин. время внешнего ответа</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_min_desc">
+        <text>Минимальное время (в децисекундах) до ответа второго NPC.\n10 = 1 сек, 40 = 4 сек, 100 = 10 сек.</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_max">
+        <text>Макс. время внешнего ответа</text>
+    </string>
+    <string id="ui_mcm_ipreports_tiempo_respuesta_2_max_desc">
+        <text>Максимальное время (в децисекундах) до ответа второго NPC.\n10 = 1 сек, 80 = 8 сек, 100 = 10 сек.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_yeiko_desc">
+        <text>Аддон от Yeiko</text>
+    </string>
+</string_table>

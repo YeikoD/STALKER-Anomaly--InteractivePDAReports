@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    SECOND NPC RESPONSE (external comment from a different faction)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_segresp_amistoso_1">
+        <text>Жаль %s, бедняга. Забрался в плохое место в %s, %s в трауре.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_2">
+        <text>Слышал, что случилось с %s в %s. Неважно, какая фракция, всё равно потерянная жизнь. Мои соболезнования %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_3">
+        <text>Бедный %s, видел его однажды. Пал в %s, он был с %s, казался приличным парнем.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_enemigo_1">
+        <text>Ха, рад это слышать. %s сам напросился в %s. Он был с %s, настоящая заноза в заднице.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_2">
+        <text>Одним беспокойным меньше. %s закончил в %s. Он был мразью из %s, скатертью дорога.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_3">
+        <text>%s больше никому не помешает в %s. %s потеряли одного, и мне плевать.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_neutral_1">
+        <text>Слушаю... %s пал в %s, был с %s. Никогда с ним не говорил, но в Зоне смерть всегда за углом.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_2">
+        <text>Что поделать. %s пал в %s. %s, наверное, перегруппировываются. Жизнь продолжается.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_3">
+        <text>Слышал о %s в %s. Надеюсь, %s умеют за себя постоять.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_amistoso_4">
+        <text>Жалко %s. Пал в %s, был с %s, молодой парень. Никто не заслуживает такой смерти.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_5">
+        <text>Бедный %s. Неважно, какая фракция, когда кто-то падает в %s — мы все сталкеры. Уважение %s.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_6">
+        <text>%s, одной жизнью меньше в %s. Был с %s, но в конце концов мы все братья в Зоне.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_7">
+        <text>Печальная новость, брат. %s пал в %s, был с %s. Передай мои соболезнования отряду.</text>
+    </string>
+    <string id="st_pjnews_segresp_amistoso_8">
+        <text>Слышал о %s. Пал в %s, был из %s. Зона — настоящая сука.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_enemigo_4">
+        <text>Поделом. %s страдал там, в %s. Был с %s, надеюсь, было больно.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_5">
+        <text>Можно одолжить твою винтовку — отметить? %s откинулся в %s. Он был с %s, отличная новость.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_6">
+        <text>Ты не представляешь, как я рад. %s больше никому не досаждает. Пал в %s, был с %s. Молодец, кто это сделал.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_7">
+        <text>%s откинулся в %s. Был с %s, сам напросился. Зона справедлива.</text>
+    </string>
+    <string id="st_pjnews_segresp_enemigo_8">
+        <text>Ха, меня это не удивляет. %s пал в %s как пёс, которым и был. Его дни были сочтены, он был с %s.</text>
+    </string>
+
+    <string id="st_pjnews_segresp_neutral_4">
+        <text>Слышал о %s в %s. Был с %s. Зона забрала очередную жертву.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_5">
+        <text>%s пал в %s, из %s. Принял к сведению. Без мнения, просто констатация факта.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_6">
+        <text>Жизнь продолжается. %s теперь в вечном сне в %s. Был с %s, пусть ему будет мирно.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_7">
+        <text>Принято. %s умер в %s, бывший член %s. Пусть покоится с миром.</text>
+    </string>
+    <string id="st_pjnews_segresp_neutral_8">
+        <text>Слышал отчёт. %s в %s, из %s. Мы все заканчиваем одинаково на этой проклятой земле.</text>
+    </string>
+</string_table>

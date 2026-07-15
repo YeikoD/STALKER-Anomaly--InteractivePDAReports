@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (NEUTRAL relation)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_neutral_1">
+        <text>Сообщаю о трупе... Это %s здесь, в %s, из %s. Парень уже отправился в лучшее место.</text>
+    </string>
+    <string id="st_pjnews_neutral_2">
+        <text>Нашёл тело %s здесь, в %s. Он был с %s. Похоже, случилось уже давно, мутанты уже рыщут рядом.</text>
+    </string>
+    <string id="st_pjnews_neutral_3">
+        <text>Бедняга... Мёртвый %s здесь, в %s, из %s. Зона не прощает, будьте начеку.</text>
+    </string>
+
+    <string id="st_pjnews_neutral_4">
+        <text>Нашёл здесь тело. Это %s, в %s. Раньше был с %s, но теперь он уже ни с кем.</text>
+    </string>
+    <string id="st_pjnews_neutral_5">
+        <text>%s мёртв в %s. %s потеряли одного из своих. Без комментариев, просто факты.</text>
+    </string>
+    <string id="st_pjnews_neutral_6">
+        <text>Свежий труп. Покойный — %s, пал в %s, был с %s. Просто сообщаю.</text>
+    </string>
+    <string id="st_pjnews_neutral_7">
+        <text>Сообщаю, что %s упокоился в %s. Был с %s. Пусть земля будет пухом.</text>
+    </string>
+    <string id="st_pjnews_neutral_8">
+        <text>Внимание, тело: %s в %s, бывший член %s. Обыскивайте быстро, если хотите что-то полезное.</text>
+    </string>
+</string_table>

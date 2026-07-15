@@ -3,7 +3,9 @@
 [NUEVO]
 
 - Ahora la PDA dice la ubicacion exacta (ej: al norte de...)
-- Agregadas las direcciones en ingles y español
+- Agregados los puntos cardinales en ingles y español
+- Idioma ruso soportado (beta)
+- Los enemigos buscaran venganza
 
 [ARREGLADO]
 

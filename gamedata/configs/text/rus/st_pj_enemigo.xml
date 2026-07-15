@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    PLAYER REPORT (ENEMY relation)
+    Format %s: 1st = victim name, 2nd = zone, 3rd = faction
+--><string_table>
+    <string id="st_pjnews_enemigo_1">
+        <text>Нашёл тело %s в %s. Он был с %s. Сгнивай в аду. Одним врагом меньше.</text>
+    </string>
+    <string id="st_pjnews_enemigo_2">
+        <text>Ещё один %s, перешедший черту. Пал в %s. Был с %s, скатертью дорога, пусть гниёт в Зоне.</text>
+    </string>
+    <string id="st_pjnews_enemigo_3">
+        <text>Смерть зафиксирована: %s пал в %s, он был с %s. Меня это не волнует, одним ублюдком меньше.</text>
+    </string>
+
+    <string id="st_pjnews_enemigo_4">
+        <text>Помните %s? Объявился мёртвым в %s, был с %s. Не ждите от меня слёз.</text>
+    </string>
+    <string id="st_pjnews_enemigo_5">
+        <text>Вот это новость: %s поймал пулю в %s, был с %s. Отличный день, чтобы сообщить об этом.</text>
+    </string>
+    <string id="st_pjnews_enemigo_6">
+        <text>Высшая справедливость. %s объявился мёртвым в %s, был с %s. Пусть Зона судит его.</text>
+    </string>
+    <string id="st_pjnews_enemigo_7">
+        <text>Радостная новость: %s больше никому не досаждает. Нашёл его в %s, был с %s. Поделом.</text>
+    </string>
+    <string id="st_pjnews_enemigo_8">
+        <text>%s покоится с миром навечно в %s. Был с %s. Надеюсь, ад существует для таких мразей.</text>
+    </string>
+</string_table>

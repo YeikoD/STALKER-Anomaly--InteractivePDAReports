@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    NPC RESPONSES TO THE PLAYER'S REPORT
+    Format: {player} = player name, {zone} = current zone, {victim} = victim name
+--><string_table>
+    <string id="st_pjnews_respuesta_victima_1">
+        <text>Думаешь, ты крутой, {player}? Мы за тобой следим. Твоя удача не продлится долго в {zone}, попомни мои слова.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_2">
+        <text>Заткнись, мразь! {victim} был в десять раз лучше сталкером, чем ты когда-либо будешь. Если увижу тебя в {zone}, нашпигую свинцом.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_3">
+        <text>Наслаждайся, пока можешь, {player}. Ты будешь следующим, кто будет валяться мёртвым. Клянёмся отомстить за {victim}.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_enemigo_1">
+        <text>Скатертью дорога. Одним куском дерьма здесь меньше.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_2">
+        <text>Зона иногда вершит правосудие. Ты следующий, если не будешь осторожен.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_3">
+        <text>Наконец-то кто-то прикончил эту крысу. Хороший вклад в сеть.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_amistoso_1">
+        <text>Какая трагедия, брат... {victim} был настоящим. Надо смотреть в оба здесь, в {zone}, становится опасно.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_2">
+        <text>Не могу поверить... Покойся с миром. Дай знать, если нужна помощь отомстить за {victim}, {player}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_3">
+        <text>Бля, мы потеряли ещё одного хорошего. Спасибо за предупреждение, {player}, будь осторожен там.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_neutral_1">
+        <text>Принято. Постарайся обыскать быстро и убраться, пока мутанты не учуяли запах.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_2">
+        <text>Спасибо за отчёт, сталкер. Я некоторое время буду избегать {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_3">
+        <text>Не повезло... сегодня ты пьёшь водку у костра, а завтра ты корм для собак. Будь осторожен.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_victima_4">
+        <text>Я буду ждать тебя, {player}. В {zone} или где угодно, я уничтожу тебя за то, что ты сделал с {victim}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_5">
+        <text>{player}, сукин сын. Мы выследим тебя как пса, которым ты и являешься. {zone} станет твоей могилой.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_6">
+        <text>Думаешь, ты крутой, {player}? {victim} был моей кровью, клянусь, я закопаю тебя рядом с ним в {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_7">
+        <text>Не прячься, {player}. Слухи быстро разносятся по {zone}, и все знают, что ты завалил {victim}. Твоё время вышло.</text>
+    </string>
+    <string id="st_pjnews_respuesta_victima_8">
+        <text>Смотри под ноги, {player}. {zone} будет недостаточно велика, чтобы спрятаться от того, что идёт за тобой из-за {victim}.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_enemigo_4">
+        <text>Честно говоря, рад это слышать. Надеюсь, тот, кто поймал пулю, хорошо страдал.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_5">
+        <text>Получил по заслугам за тупость. Зона не разбирает — мы все в конечном счёте становимся кормом для кабанов.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_6">
+        <text>Одним беспокойством меньше. Молодец, кто его снял, надеюсь, было больно.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_7">
+        <text>Сам напросился. Этот ублюдок сделал жизнь некоторых здесь адом.</text>
+    </string>
+    <string id="st_pjnews_respuesta_enemigo_8">
+        <text>Отлично сработано. Надеюсь, он страдал и знал, кто отправил его на тот свет.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_amistoso_4">
+        <text>Твою мать, {victim} не заслужил этого. Он был хорошим человеком, одним из немногих, оставшихся в {zone}.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_5">
+        <text>Душа болит, {player}. {victim} и мы не раз сидели у костра в {zone}. Буду скучать.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_6">
+        <text>Из всех людей {victim}... только когда всё начало успокаиваться в {zone}. Зона никогда не даёт передышки.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_7">
+        <text>Ты не представляешь, как это больно. {victim} однажды спас мне задницу. Если нужно что-то почтить его память, просто спроси.</text>
+    </string>
+    <string id="st_pjnews_respuesta_amistoso_8">
+        <text>Какая жалость, брат. {victim} отправился в рай сталкера. {zone} потеряла сегодня настоящего человека.</text>
+    </string>
+
+    <string id="st_pjnews_respuesta_neutral_4">
+        <text>Принято. Лучше держаться подальше от {zone} какое-то время, пока псы не забудут запах смерти.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_5">
+        <text>Хорошо, что сообщил. В {zone} сейчас жарко, лучше держать глаза открытыми.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_6">
+        <text>Смерть всегда рыщет в Зоне. Спасибо за наводку, запомню.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_7">
+        <text>Принято. Если увидишь что-то странное в {zone}, сообщи ещё раз — для этого и нужна сеть.</text>
+    </string>
+    <string id="st_pjnews_respuesta_neutral_8">
+        <text>Что поделать. {zone} стала на одну душу легче. Надеюсь, мутанты не сойдут с ума от запаха.</text>
+    </string>
+</string_table>
