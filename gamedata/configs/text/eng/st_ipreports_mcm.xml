@@ -112,4 +112,27 @@
     <string id="ui_mcm_ipreports_yeiko_desc">
         <text>Addon By Yeiko</text>
     </string>
+
+    <string id="ui_mcm_ipreports_hunt_title">
+        <text>NPC Hunt</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_toggle">
+        <text>Enable Hunt</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_toggle_desc">
+        <text>When enabled, NPCs sending threatening (victima) responses may come to hunt you down.</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_probabilidad">
+        <text>Hunt Probability (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_probabilidad_desc">
+        <text>Chance that a threatening NPC will actually teleport to you after sending the threat response.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_debug_toggle">
+        <text>Debug Mode</text>
+    </string>
+    <string id="ui_mcm_ipreports_debug_toggle_desc">
+        <text>When enabled, shows debug info and marks hunting NPCs on the map.</text>
+    </string>
 </string_table>

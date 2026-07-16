@@ -31,6 +31,32 @@ function faccion_para_traduccion(comunidad)
     return s
 end
 
+-- Facciones no conscientes que no deben responder en el chat
+local facciones_no_conscientes = {
+    zombie = true,
+    zombied = true,
+    monster = true,
+    tushkano = true,
+    dog = true,
+    pseudodog = true,
+    cat = true,
+    flesh = true,
+    boar = true,
+    snork = true,
+    bloodsucker = true,
+    burer = true,
+    controller = true,
+    poltergeist = true,
+    chimera = true,
+    karlik = true
+}
+
+function es_npc_consciente(faccion)
+    if not faccion then return false end
+    local faccion_lower = tostring(faccion):lower()
+    return not facciones_no_conscientes[faccion_lower]
+end
+
 function traducir_faccion(comunidad)
     local trad = game.translate_string(comunidad)
     if trad ~= comunidad then return trad end
@@ -63,7 +89,6 @@ end
 -- ============================================================================
 -- 2. UBICACIÓN PRECISA CON SMART TERRAIN
 -- ============================================================================
-
 local function calcular_direccion(dx, dz)
     local angle = math.atan2(dz, dx) * 180 / math.pi
     angle = (angle + 360) % 360
@@ -313,10 +338,12 @@ function buscar_respondedor_por_faccion(faccion_objetivo)
     for id, npc in pairs(db.storage) do
         local obj = level.object_by_id(id)
         if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
-            if obj:character_community() == faccion_objetivo then
+            local fac = obj:character_community()
+            if fac == faccion_objetivo and es_npc_consciente(fac) then
                 candidatos[#candidatos + 1] = {
+                    id = id,
                     nombre = obj:character_name(),
-                    faccion = obj:character_community(),
+                    faccion = fac,
                     icono = obj:character_icon()
                 }
             end
@@ -332,8 +359,9 @@ function buscar_respondedor_distinta_faccion(faccion_excluida)
         local obj = level.object_by_id(id)
         if obj and IsStalker(obj) and obj:alive() and (id ~= db.actor:id()) then
             local fac = obj:character_community()
-            if fac ~= faccion_excluida then
+            if fac ~= faccion_excluida and es_npc_consciente(fac) then
                 candidatos[#candidatos + 1] = {
+                    id = id,
                     nombre = obj:character_name(),
                     faccion = fac,
                     icono = obj:character_icon()
@@ -353,19 +381,101 @@ function sustituir_plantilla_primera(template, player, zone, victim)
     return result
 end
 
-function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_actual, nombre_muerto, faccion_player, delay_min, delay_max, r2_data, r2_cat, r2_delay_min, r2_delay_max, faccion_muerto)
+function ejecutar_caceria(npc_id, smart_target_id)
+    pj_log("interactive", "Caceria: moviendo NPC id=%s a smart %s", tostring(npc_id), tostring(smart_target_id))
+    local smart_target = smart_target_id and alife_object(smart_target_id)
+    if not smart_target then
+        pj_log("interactive", "Caceria: smart target invalido")
+        return
+    end
+
+    local se_npc = alife_object(npc_id)
+    if not se_npc then
+        pj_log("interactive", "Caceria: no se encontro server object para NPC %s", tostring(npc_id))
+        return
+    end
+
+    -- 1. Asignar squad al smart terrain via A-Life
+    local sim = alife()
+    local squad_id = se_npc.group_id
+    local squad = squad_id and squad_id ~= 65535 and sim:object(squad_id)
+    if squad then
+        SIMBOARD:assign_squad_to_smart(squad, smart_target.id)
+        squad.assigned_target_id = smart_target.id
+        squad.current_target_id = nil
+        squad.current_action = 0
+        squad.rush_to_target = true
+        for k in squad:squad_members() do
+            local se_obj = k.object or k.id and sim:object(k.id)
+            if se_obj then
+                SIMBOARD:setup_squad_and_group(se_obj)
+            end
+        end
+    else
+        se_npc.m_smart_terrain_id = smart_target.id
+    end
+
+    -- 2. Forzar movimiento inmediato via game_object (mismo patron que xr_reach_task)
+    local obj = level.object_by_id(npc_id)
+    if obj and IsStalker(obj) and obj:alive() then
+        local pos, lv_id, gv_id = smart_target:get_location()
+        if pos and lv_id and gv_id then
+            obj:set_mental_state(anim.free)
+            if obj:game_vertex_id() ~= gv_id then
+                obj:set_path_type(game_object.game_path)
+                obj:set_dest_game_vertex_id(gv_id)
+            else
+                obj:set_path_type(game_object.level_path)
+                if not obj:accessible(lv_id) then
+                    local tmp = vector():set(0, 0, 0)
+                    lv_id = obj:accessible_nearest(level.vertex_position(lv_id), tmp)
+                end
+                obj:set_dest_level_vertex_id(lv_id)
+                obj:set_desired_position(pos)
+            end
+            obj:set_movement_type(move.run)
+            pj_log("interactive", "Caceria: NPC %s enviado a smart terrain %s", tostring(npc_id), tostring(smart_target.id))
+        end
+    else
+        pj_log("interactive", "Caceria: NPC %s no online, movimiento diferido a A-Life", tostring(npc_id))
+    end
+
+    local debug_toggle = (ui_mcm and ui_mcm.get("ipreports/debug_toggle")) or false
+    if debug_toggle then
+        local news_text = game.translate_string("st_ipreports_hunt_debug_news")
+        if news_text and news_text ~= "st_ipreports_hunt_debug_news" then
+            db.actor:give_game_news("PDARepost", news_text, "ui_inGame2_sid", 0, 5000, 0)
+        end
+        if level.map_has_object_spot(npc_id, "red_location") == 0 then
+            level.map_add_object_spot_ser(npc_id, "red_location", news_text or "Hunt")
+        end
+        pj_log("interactive", "Caceria: debug mode - news sent and spot added for NPC %s", tostring(npc_id))
+    end
+end
+
+function verificar_hunt(npc, categoria_usada, smart_target_id)
+    if categoria_usada ~= "victima" then return end
+    if not npc or not npc.id then return end
+    local hunt_toggle = (ui_mcm and ui_mcm.get("ipreports/hunt_toggle")) or false
+    if not hunt_toggle then return end
+    local hunt_prob = (ui_mcm and ui_mcm.get("ipreports/hunt_probabilidad")) or 0
+    if ui_mcm and ui_mcm.get("ipreports/debug_toggle") then hunt_prob = 100 end
+    if hunt_prob <= 0 then return end
+    if math.random() > hunt_prob / 100 then return end
+    pj_log("interactive", "Caceria: activada para NPC %s (prob=%s%%)", npc.nombre, tostring(hunt_prob))
+    ejecutar_caceria(npc.id, smart_target_id)
+end
+
+function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_actual, nombre_muerto, faccion_player, delay_min, delay_max, r2_data, r2_cat, r2_delay_min, r2_delay_max, faccion_muerto, smart_target_id)
     local delay = math.random(delay_min, delay_max) / 10
     pj_log("respuestas", "NPC '%s' respondera en %s segundos...", npc.nombre, tostring(delay))
 
     CreateTimeEvent("ipreports_Resp1_Event", "enviar_respuesta_pda", delay, function()
         local cat = categoria_usada
-        -- Si el respondedor es de la misma faccion que el muerto
         if npc.faccion == faccion_muerto then
-            -- Si el muerto era enemigo del jugador (no lo mate yo), usa enemigo_defiende
             if categoria_usada == "enemigo" then
                 cat = "enemigo_defiende"
             end
-            -- Para victim/amistoso/neutral, mantener la categoria original
         end
         local max_frases = total_frases[cat]
         if not max_frases or max_frases == 0 then max_frases = 3 end
@@ -386,7 +496,8 @@ function programar_primera_respuesta(npc, categoria_usada, nombre_player, zona_a
         dynamic_news_helper.send_tip(msg, npc.nombre .. ", " .. traducir_faccion(npc.faccion), nil, 10, npc.icono, "news", "npc")
         pj_log("respuestas", "Respuesta enviada por: %s, texto: %s", npc.nombre, texto)
 
-        -- Encadenar segunda respuesta si existe r2_data
+        verificar_hunt(npc, categoria_usada, smart_target_id)
+
         if r2_data then
             pj_log("respuestas", "Segunda respuesta encadenada: %s (rango %s-%s deciseg)", r2_data.nombre, tostring(r2_delay_min), tostring(r2_delay_max))
             programar_segunda_respuesta(r2_data, r2_cat, faccion_muerto, nombre_muerto, zona_actual, nombre_player, r2_delay_min, r2_delay_max)
@@ -445,6 +556,7 @@ function procesar_reporte(datos)
     local factorEgo = 100
     if ui_mcm then
         factorEgo = ui_mcm.get("ipreports/factorEgo") or 100
+        if ui_mcm.get("ipreports/debug_toggle") then factorEgo = 100 end
     end
     if math.random() > factorEgo / 100 then
         pj_log("interactive", "DEBUG factorEgo: no se reporta este cadaver (%s%%)", tostring(factorEgo))
@@ -473,6 +585,23 @@ function procesar_reporte(datos)
     local npc_pos = datos.pos_x and {x = datos.pos_x, y = datos.pos_y, z = datos.pos_z} or nil
     local smart_loc = obtener_ubicacion_precisa(datos.id, npc_pos)
     local zona_actual = smart_loc and (game.translate_string(level.name()) .. ", " .. smart_loc) or game.translate_string(level.name())
+
+    local smart_target_id = nil
+    if datos.id and SIMBOARD and SIMBOARD.smarts_by_names then
+        local se_cuerpo = alife_object(datos.id)
+        if se_cuerpo then
+            local best_dist = math.huge
+            for sname, smart in pairs(SIMBOARD.smarts_by_names) do
+                if smart and smart.position and simulation_objects and simulation_objects.is_on_the_same_level(smart, se_cuerpo) then
+                    local dist = se_cuerpo.position:distance_to(smart.position)
+                    if dist < best_dist then
+                        best_dist = dist
+                        smart_target_id = smart.id
+                    end
+                end
+            end
+        end
+    end
 
     -- 1. Reporte del jugador en la PDA
     local categoria_usada = generar_reporte_en_pda(nombre_muerto, faccion_muerto, icono_muerto, lo_mate_yo, nombre_player, faccion_player, zona_actual)
@@ -537,6 +666,7 @@ function procesar_reporte(datos)
     local tiempo1_max = 60
     local tiempo2_min = 40
     local tiempo2_max = 80
+    local debug_on = ui_mcm and ui_mcm.get("ipreports/debug_toggle")
     if ui_mcm then
         prob_primera = ui_mcm.get("ipreports/respuesta_probabilidad") or 40
         prob_segunda = ui_mcm.get("ipreports/segunda_respuesta_probabilidad") or 30
@@ -544,6 +674,10 @@ function procesar_reporte(datos)
         tiempo1_max = ui_mcm.get("ipreports/tiempo_respuesta_1_max") or 60
         tiempo2_min = ui_mcm.get("ipreports/tiempo_respuesta_2_min") or 40
         tiempo2_max = ui_mcm.get("ipreports/tiempo_respuesta_2_max") or 80
+        if debug_on then
+            prob_primera = 100
+            prob_segunda = 100
+        end
     end
 
     if tiempo1_max < tiempo1_min then tiempo1_max = tiempo1_min end
@@ -566,7 +700,7 @@ function procesar_reporte(datos)
     if r1_pasa then
         pj_log("interactive", "Primera respuesta encontrada: %s", r1.nombre)
         local r2_para_encadenar = r2_pasa and r2 or nil
-        programar_primera_respuesta(r1, categoria_usada, nombre_player, zona_actual, nombre_muerto, faccion_player, tiempo1_min, tiempo1_max, r2_para_encadenar, r2_cat, tiempo2_min, tiempo2_max, faccion_muerto)
+        programar_primera_respuesta(r1, categoria_usada, nombre_player, zona_actual, nombre_muerto, faccion_player, tiempo1_min, tiempo1_max, r2_para_encadenar, r2_cat, tiempo2_min, tiempo2_max, faccion_muerto, smart_target_id)
     elseif r1 then
         pj_log("interactive", "DEBUG respondedor existe pero no paso el random")
     else

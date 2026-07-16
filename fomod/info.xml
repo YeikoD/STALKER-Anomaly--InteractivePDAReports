@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fomod>
+  <Name>Interactive PDA Reports</Name>
+  <Version>1.0</Version>
+  <Author>Yeiko</Author>
+  <Description>An immersion mod for S.T.A.L.K.E.R. Anomaly that makes your character and NPCs communicate via radio through the PDA network. For support, visit the GitHub link below.</Description>
+  <Website>https://github.com/YeikoD/STALKER-Anomaly--InteractivePDAReports</Website>
+  <Image>IPDAR_Banner.png</Image>
+</fomod>

@@ -103,4 +103,8 @@
     <string id="st_pjnews_faction_actor">
         <text>Loner</text>
     </string>
+
+    <string id="st_ipreports_hunt_debug_news">
+        <text>A patrol is heading to your location seeking vengeance.</text>
+    </string>
 </string_table>

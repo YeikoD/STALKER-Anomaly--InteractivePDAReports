@@ -112,4 +112,27 @@
     <string id="ui_mcm_ipreports_yeiko_desc">
         <text>Addon By Yeiko</text>
     </string>
+
+    <string id="ui_mcm_ipreports_hunt_title">
+        <text>Caceria de NPC</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_toggle">
+        <text>Activar Caceria</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_toggle_desc">
+        <text>Cuando esta activado, los NPCs que envien respuestas amenazantes (victima) pueden venir a cazarte.</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_probabilidad">
+        <text>Probabilidad de Caceria (%)</text>
+    </string>
+    <string id="ui_mcm_ipreports_hunt_probabilidad_desc">
+        <text>Probabilidad de que un NPC amenazante se teletransporte a tu posicion tras enviar la amenaza.</text>
+    </string>
+
+    <string id="ui_mcm_ipreports_debug_toggle">
+        <text>Modo Debug</text>
+    </string>
+    <string id="ui_mcm_ipreports_debug_toggle_desc">
+        <text>Cuando esta activado, muestra informacion de depuracion y marca a los NPCs cazadores en el mapa.</text>
+    </string>
 </string_table>

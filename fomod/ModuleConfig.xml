@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://fomod.github.io/schema/v4/fomod.xsd">
+
+  <moduleName>Interactive PDA Reports</moduleName>
+
+  <requiredInstallFiles>
+    <file source="gamedata/scripts/ipreports_interactive.script" destination="gamedata/scripts/ipreports_interactive.script" />
+    <file source="gamedata/scripts/ipreports_mcm.script" destination="gamedata/scripts/ipreports_mcm.script" />
+  </requiredInstallFiles>
+
+  <installSteps order="Explicit">
+
+    <installStep name="About Interactive PDA Reports">
+      <optionalFileGroups order="Explicit">
+        <group name="Welcome" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="Continue">
+              <description>Interactive PDA Reports is an add-on for S.T.A.L.K.E.R. Anomaly that enhances immersion by transforming the static reporting system into a dynamic radio network. Instead of receiving dry, disconnected notifications, your character now automatically broadcasts radio reports whenever they loot a body, just like other stalkers in the Zone. This mod makes quest updates, discoveries, and death reports feel like authentic, dynamic communications that are seamlessly integrated into the world of the Zone.</description>
+              <image path="fomod/images/IPDAR_Banner.png" />
+              <typeDescriptor>
+                <type name="Optional" />
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+
+    <installStep name="Language Selection">
+      <optionalFileGroups order="Explicit">
+        <group name="Choose your language" type="SelectExactlyOne">
+          <plugins order="Explicit">
+
+            <plugin name="Spanish">
+              <description>Instala el mod con textos en Español. Recomendado si tu juego está en español.</description>
+              <image path="fomod/images/stalker_yeiko_walppaper.png" />
+              <files>
+                <folder source="gamedata/configs/text/spa" destination="gamedata/configs/text/spa" />
+              </files>
+            </plugin>
+
+            <plugin name="English">
+              <description>Install the mod with English text files. Recommended if your game is in English.</description>
+              <image path="fomod/images/stalker_yeiko_walppaper.png" />
+              <files>
+                <folder source="gamedata/configs/text/eng" destination="gamedata/configs/text/eng" />
+              </files>
+            </plugin>
+
+            <plugin name="Russian">
+              <description>Установить мод с русскими текстовыми файлами (Бета). Рекомендуется, если ваша игра на русском языке.</description>
+              <image path="fomod/images/stalker_yeiko_walppaper.png" />
+              <files>
+                <folder source="gamedata/configs/text/rus" destination="gamedata/configs/text/rus" />
+              </files>
+            </plugin>
+
+            <plugin name="All Languages">
+              <description>Installs all supported languages (English, Spanish, and Russian). The mod will automatically use your game's language. Recommended if you switch game languages or are unsure which to pick.</description>
+              <image path="fomod/images/stalker_yeiko_walppaper.png" />
+              <files>
+                <folder source="gamedata/configs/text/spa" destination="gamedata/configs/text/spa" />
+                <folder source="gamedata/configs/text/eng" destination="gamedata/configs/text/eng" />
+                <folder source="gamedata/configs/text/rus" destination="gamedata/configs/text/rus" />
+              </files>
+            </plugin>
+
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+
+    <installStep name="Version 1.0.0 Changelog">
+      <optionalFileGroups order="Explicit">
+        <group name="What's new" type="SelectAny">
+          <plugins order="Explicit">
+            <plugin name="View Changelog">
+              <image path="fomod/images/stalker_code_wallpaper.png" />
+              <description>NEW FEATURES:
+- Dynamic PDA Locations with landmark descriptions.
+- Bilingual cardinal points (English/Spanish).
+- Russian Language Support (Beta).
+- Vengeance System for enemy AI.
+- Developer Debug Mode.
+
+BUG FIXES:
+- AI behavioral fix for allies.
+- Radio broadcast fix for mutants.
+- Russian encoding fix (Windows-1251).
+- Standardized versioning system.</description>
+              <typeDescriptor>
+                <type name="Optional" />
+              </typeDescriptor>
+            </plugin>
+          </plugins>
+        </group>
+      </optionalFileGroups>
+    </installStep>
+
+  </installSteps>
+</config>

@@ -103,4 +103,8 @@
     <string id="st_pjnews_faction_actor">
         <text>Solitarios</text>
     </string>
+
+    <string id="st_ipreports_hunt_debug_news">
+        <text>Una patrulla se dirige hacia tu ubicacion en busca de venganza.</text>
+    </string>
 </string_table>

@@ -23,6 +23,10 @@ function on_mcm_load()
             {id = "tiempo_respuesta_1_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 60},
             {id = "tiempo_respuesta_2_min", type = "track", val = 2, min = 10, max = 100, step = 5, def = 40},
             {id = "tiempo_respuesta_2_max", type = "track", val = 2, min = 10, max = 100, step = 5, def = 80},
+            {id = "hunt_title", type = "title", text = "ui_mcm_ipreports_hunt_title"},
+            {id = "hunt_toggle", type = "check", val = 1, def = true},
+            {id = "hunt_probabilidad", type = "track", val = 2, min = 0, max = 100, step = 5, def = 50},
+            {id = "debug_toggle", type = "check", val = 1, def = false},
             {id = "yeiko_desc", type = "desc", text = "ui_mcm_ipreports_yeiko_desc"}
         }
     }
